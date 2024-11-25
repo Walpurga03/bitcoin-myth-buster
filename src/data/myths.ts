@@ -8,134 +8,142 @@ export interface Myth {
 export const myths: Myth[] = [
   {
     id: 1,
-    text: "Kann man Bitcoin nur für illegale Dinge nutzen?",
-    explanation: "Bitcoin ist wie das Internet oder Bargeld: Es kann für legale und illegale Zwecke verwendet werden. Die meisten Bitcoin-Transaktionen sind jedoch legal und transparent nachvollziehbar.",
+    text: "Ist Bitcoin nur für illegale Aktivitäten?",
+    explanation: "Bitcoin wird für viele legale Zwecke verwendet, wie Investitionen, Überweisungen und Zahlungen. Illegale Aktivitäten machen nur einen kleinen Teil aus.",
     isMyth: false
   },
   {
     id: 2,
-    text: "Hat Bitcoin überhaupt einen Wert?",
-    explanation: "Ja, Bitcoin hat einen Wert, weil es ein knappes digitales Gut ist. Es bietet ein globales Zahlungssystem und kann als Wertspeicher genutzt werden, ähnlich wie Gold.",
-    isMyth: true
+    text: "Wurde Bitcoin schon einmal gehackt?",
+    explanation: "Das Bitcoin-Netzwerk selbst wurde noch nie gehackt. Probleme entstehen meist durch unsichere Wallets oder Börsen, nicht durch Bitcoin selbst.",
+    isMyth: false
   },
   {
     id: 3,
-    text: "Verbraucht Bitcoin viel Energie?",
-    explanation: "Bitcoin verbraucht Energie, aber das traditionelle Finanzsystem tut das auch. Bitcoin fördert die Nutzung erneuerbarer Energien und nutzt oft überschüssige Energie.",
+    text: "Ist Bitcoin eine Blase?",
+    explanation: "Bitcoin hat Preisschwankungen, aber auch echten Nutzen als Zahlungssystem und Wertspeicher. Eine Blase hat keinen echten Wert.",
     isMyth: false
   },
   {
     id: 4,
-    text: "Ist Bitcoin zu unsicher für den täglichen Gebrauch?",
-    explanation: "Bitcoin kann schwanken, aber mit zunehmender Nutzung stabilisiert sich der Preis. Es gibt Lösungen, um die Schwankungen für den täglichen Gebrauch auszugleichen.",
+    text: "Verbraucht Bitcoin zu viel Energie?",
+    explanation: "Bitcoin nutzt erneuerbare Energien und hilft sogar, Energieüberschüsse sinnvoll zu nutzen. Der Energieverbrauch sichert das Netzwerk.",
     isMyth: false
   },
   {
     id: 5,
-    text: "Wurde Bitcoin jemals gehackt?",
-    explanation: "Das Bitcoin-Netzwerk selbst wurde noch nie gehackt. Probleme entstehen meist durch unsichere Aufbewahrung oder Betrug, nicht durch das Bitcoin-Protokoll.",
+    text: "Ist Bitcoin nur für Technik-Experten?",
+    explanation: "Bitcoin wird immer benutzerfreundlicher. Heute kann jeder mit einem Smartphone Bitcoin nutzen, ohne technisches Wissen.",
     isMyth: false
   },
   {
     id: 6,
-    text: "Ist Bitcoin komplett anonym?",
-    explanation: "Bitcoin-Transaktionen sind pseudonym, nicht anonym. Alle Transaktionen sind öffentlich und können zu Adressen zurückverfolgt werden.",
-    isMyth: false
+    text: "Hat Bitcoin einen echten Wert?",
+    explanation: "Bitcoin hat Wert durch sein Netzwerk, Sicherheit, Knappheit und Nutzen als Zahlungssystem und Wertspeicher.",
+    isMyth: true
   },
   {
     id: 7,
-    text: "Kann Bitcoin inflationär werden?",
-    explanation: "Bitcoin ist deflationär, da es nur 21 Millionen Coins geben wird. Es ist vor Inflation geschützt, anders als Fiat-Währungen.",
+    text: "Kann Bitcoin von Regierungen verboten werden?",
+    explanation: "Bitcoin ist ein dezentrales Netzwerk und kann nicht komplett verboten werden. Lokale Einschränkungen sind möglich.",
     isMyth: false
   },
   {
     id: 8,
-    text: "Ist Bitcoin nur eine Blase?",
-    explanation: "Bitcoin hat in der Vergangenheit Schwankungen erlebt, aber es hat sich immer wieder erholt und neue Höchststände erreicht.",
+    text: "Schwankt der Bitcoin-Preis zu stark für tägliche Nutzung?",
+    explanation: "Die Preisschwankungen werden mit der Zeit geringer. Außerdem gibt es möglichkeiten für schnelle Umtauschmöglichkeiten für den Alltag.",
     isMyth: false
   },
   {
     id: 9,
-    text: "Können Regierungen Bitcoin verbieten?",
-    explanation: "Regierungen können den Handel mit Bitcoin einschränken, aber das Netzwerk selbst ist schwer zu verbieten, da es dezentralisiert ist.",
+    text: "Wird Bitcoin von großen Investoren kontrolliert?",
+    explanation: "Nein, Bitcoin ist dezentral. Große Investoren (auch 'Wale' genannt) können zwar den Preis beeinflussen, haben aber keine Kontrolle über das Bitcoin-Netzwerk selbst.",
     isMyth: false
   },
   {
     id: 10,
-    text: "Ist Bitcoin nur für Technik-Experten?",
-    explanation: "Es gibt viele benutzerfreundliche Plattformen, die Bitcoin für jedermann zugänglich machen, auch ohne technisches Wissen.",
+    text: "Ist Bitcoin anonym?",
+    explanation: "Bitcoin ist pseudonym, nicht anonym. Alle Transaktionen sind öffentlich nachverfolgbar.",
     isMyth: false
   },
   {
     id: 11,
-    text: "Kann Bitcoin wertlos werden?",
-    explanation: "Es ist unwahrscheinlich, dass Bitcoin wertlos wird, da es eine große Nutzerbasis und begrenzte Versorgung hat, die seinen Wert stützt.",
-    isMyth: false
+    text: "Kann man Bitcoin einfach kopieren?",
+    explanation: "Ja, aber obwohl der Bitcoin-Code frei verfügbar ist, können die wichtigsten Eigenschaften nicht kopiert werden: das riesige dezentrale Netzwerk, die Sicherheit durch tausende Miner und das Vertrauen der Nutzer.",
+    isMyth: true
   },
   {
     id: 12,
     text: "Gibt es versteckte Codes im Bitcoin-Protokoll?",
-    explanation: "Bitcoin ist Open Source, was bedeutet, dass der Code öffentlich und überprüfbar ist. Ein versteckter Code wäre entdeckt worden.",
+    explanation: "Bitcoin ist Open Source, was bedeutet, dass der Code öffentlich und überprüfbar ist. Ein versteckter Code serait entdeckt worden.",
     isMyth: false
   },
-    {
-      id: 13,
-      text: "Sind Bitcoin-Transaktionen reversibel?",
-      explanation: "Nein, Bitcoin-Transaktionen sind endgültig und können nach Bestätigung nicht rückgängig gemacht werden. Dies stellt sicher, dass keine Rückbuchungen erfolgen können.",
-      isMyth: false
-    },
-    {
-      id: 14,
-      text: "Wird Bitcoin von einer zentralen Behörde kontrolliert?",
-      explanation: "Nein, Bitcoin ist ein dezentrales Netzwerk, das von einem globalen Netzwerk von Computern verwaltet wird, ohne zentrale Autorität.",
-      isMyth: false
-    },
-    {
-      id: 15,
-      text: "Kann jeder am Bitcoin-Netzwerk teilnehmen?",
-      explanation: "Ja, jeder mit einem Computer und Internetverbindung kann am Bitcoin-Netzwerk teilnehmen, sei es als Nutzer, Miner oder Knoten.",
-      isMyth: false
-    },
-    {
-      id: 16,
-      text: "Ist Bitcoin nur für digitale Zahlungen nützlich?",
-      explanation: "Nein, Bitcoin kann auch als Wertspeicher und Absicherung gegen Inflation genutzt werden, ähnlich wie Gold.",
-      isMyth: false
-    },
-    {
-      id: 17,
-      text: "Muss ich ganze Bitcoins kaufen?",
-      explanation: "Nein, Bitcoin kann in sehr kleine Bruchteile aufgeteilt werden, bis hin zu einem Satoshi, der ein Hundertmillionstel eines Bitcoins darstellt.",
-      isMyth: false
-    },
-    {
-      id: 18,
-      text: "Sind Bitcoin-Transaktionen sofort bestätigt?",
-      explanation: "Nein, Bitcoin-Transaktionen benötigen Zeit, um von Minern bestätigt zu werden, was je nach Netzwerkbelastung variieren kann.",
-      isMyth: false
-    },
-    {
-      id: 19,
-      text: "Kann Bitcoin beliebig oft kopiert werden?",
-      explanation: "Nein, Bitcoin kann nicht kopiert werden, da jede Transaktion im Blockchain-Ledger erfasst wird, das unveränderlich ist.",
-      isMyth: false
-    },
-    {
-      id: 20,
-      text: "Kann ich Bitcoin ohne Internet nutzen?",
-      explanation: "Nein, du benötigst eine Internetverbindung, um Bitcoin-Transaktionen durchzuführen, da sie über das Netzwerk abgewickelt werden.",
-      isMyth: false
-    },
-    {
-      id: 21,
-      text: "Kann ich mein Bitcoin-Wallet verlieren?",
-      explanation: "Ja, wenn du die privaten Schlüssel verlierst, verlierst du den Zugriff auf dein Wallet und deine Bitcoins.",
-      isMyth: false
-    },
-    {
-      id: 22,
-      text: "Sind Bitcoin-Zahlungen anonym?",
-      explanation: "Bitcoin-Zahlungen sind pseudonym, da Adressen verwendet werden, die nicht direkt mit einer Person verknüpft sind, aber Transaktionen sind öffentlich einsehbar.",
-      isMyth: false
-    }
+  {
+    id: 13,
+    text: "Können Bitcoin-Transaktionen rückgängig gemacht werden?",
+    explanation: "Nein, Bitcoin-Transaktionen sind endgültig und können nach der Bestätigung nicht mehr rückgängig gemacht werden. Dies macht das System sicher gegen nachträgliche Änderungen.",
+    isMyth: false
+  },
+  {
+    id: 14,
+    text: "Wird Bitcoin von einer zentralen Behörde kontrolliert?",
+    explanation: "Nein, Bitcoin ist ein dezentrales Netzwerk, das von einem globalen Netzwerk von Computern verwaltet wird, ohne zentrale Autorität.",
+    isMyth: false
+  },
+  {
+    id: 15,
+    text: "Kann jeder am Bitcoin-Netzwerk teilnehmen?",
+    explanation: "Ja, jeder mit einem Computer und Internetverbindung kann am Bitcoin-Netzwerk teilnehmen, sei es als Nutzer, Miner oder Knoten.",
+    isMyth: true
+  },
+  {
+    id: 16,
+    text: "Ist Bitcoin nur für digitale Zahlungen nützlich?",
+    explanation: "Nein, Bitcoin kann auch als Wertspeicher und Absicherung gegen Inflation genutzt werden, ähnlich wie Gold.",
+    isMyth: false
+  },
+  {
+    id: 17,
+    text: "Muss ich ganze Bitcoins kaufen?",
+    explanation: "Nein, Bitcoin kann in sehr kleine Bruchteile aufgeteilt werden, bis hin zu einem Satoshi, der ein Hundertmillionstel eines Bitcoins darstellt.",
+    isMyth: false
+  },
+  {
+    id: 18,
+    text: "Sind Bitcoin-Transaktionen sofort bestätigt?",
+    explanation: "Nein, Bitcoin-Transaktionen benötigen Zeit, um von Minern bestätigt zu werden, was je nach Netzwerkbelastung variieren kann.",
+    isMyth: false
+  },
+  {
+    id: 19,
+    text: "Kann ich Bitcoin nur mit Internet nutzen?",
+    explanation: "Nein, Bitcoin kann auch über alternative Wege wie SMS, Satellit (z.B. Blockstream Satellite) oder Radio-Übertragungen genutzt werden. Eine direkte Internet-Verbindung ist nicht zwingend erforderlich.",
+    isMyth: false
+  },
+  {
+    id: 20,
+    text: "Kann ich mein Bitcoin-Wallet verlieren?",
+    explanation: "Ja, wenn du die privaten Schlüssel verlierst, verlierst du den Zugriff auf dein Wallet und deine Bitcoins.",
+    isMyth: true
+  },
+  {
+    id: 21,
+    text: "Sind Bitcoin wie echte Münzen die man besitzen kann?",
+    explanation: "Nein, Bitcoin existieren nur als Einträge im Netzwerk. Man besitzt nur die privaten Schlüssel, die wie ein Passwort funktionieren und mit denen man die Bitcoin im Netzwerk kontrollieren kann.",
+    isMyth: false
+  },
+  {
+  id: 22,
+  text: "Könnte Satoshi Nakamoto Bitcoin kontrollieren, wenn er zurückkehrt?",
+  explanation: "Nein, selbst der Bitcoin-Erfinder Satoshi Nakamoto konnte das Netzwerk nicht kontrollieren. Das dezentrale System funktioniert unabhängig von einzelnen Personen.",
+  isMyth: false
+  },
+  {
+    id: 23,
+    text: "Weiß man, wer Satoshi Nakamoto wirklich ist?",
+    explanation: "Nein, die wahre Identität des Bitcoin-Erfinders ist bis heute unbekannt. Viele haben behauptet Satoshi zu sein, aber niemand konnte es bisher beweisen.",
+    isMyth: false
+  }
 ];
+
+export default myths;
