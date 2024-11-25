@@ -1,0 +1,28 @@
+// Abstracts
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Base
+@import 'base/reset';
+
+// Components
+@import 'components/question';
+@import 'components/explanation-popup';
+
+.app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @include flex-center;
+  background-color: $color-background;
+  overflow: hidden;
+
+  &__content {
+    @include container;
+    @include flex-center;
+    height: 100%;
+    max-height: 800px;
+  }
+}

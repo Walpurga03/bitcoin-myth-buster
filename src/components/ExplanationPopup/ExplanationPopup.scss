@@ -1,0 +1,104 @@
+@import '../../styles/abstracts/variables';
+@import '../../styles/abstracts/mixins';
+
+.explanation-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: fadeInScale 0.5s forwards;
+
+  &__content {
+    background-color: $color-background-light;
+    padding: $spacing-large;
+    border-radius: $border-radius-large;
+    max-width: 600px;
+    width: 90%;
+    color: $color-text;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: popUp 0.6s ease-out forwards;
+
+    h2 {
+      color: $color-bitcoin;
+      font-size: $font-size-large;
+      margin-bottom: $spacing-medium;
+      transform: translateY(-20px);
+      opacity: 0;
+      animation: slideDown 0.5s ease forwards 0.3s;
+    }
+
+    p {
+      font-size: $font-size-medium;
+      margin-bottom: $spacing-large;
+      line-height: 1.5;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: slideUp 0.5s ease forwards 0.4s;
+    }
+
+    button {
+      background-color: $color-bitcoin;
+      color: $color-text;
+      border: none;
+      padding: $spacing-small $spacing-medium;
+      font-size: $font-size-medium;
+      border-radius: $border-radius-default;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards 0.6s;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba($color-bitcoin, 0.3);
+      }
+    }
+  }
+}
+
+@keyframes fadeInScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes popUp {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

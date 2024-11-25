@@ -1,0 +1,41 @@
+// Responsive breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: $breakpoint-mobile) { @content; }
+  }
+  @if $breakpoint == tablet {
+    @media (max-width: $breakpoint-tablet) { @content; }
+  }
+  @if $breakpoint == desktop {
+    @media (max-width: $breakpoint-desktop) { @content; }
+  }
+}
+
+// Flexbox center
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Button styles
+@mixin button-base {
+  padding: $spacing-small $spacing-large;
+  font-size: $font-size-medium;
+  border: none;
+  border-radius: $border-radius-default;
+  cursor: pointer;
+  transition: $transition-default;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// Container styles
+@mixin container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-medium;
+}

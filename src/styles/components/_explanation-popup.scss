@@ -1,0 +1,60 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color-background, 0.8);
+  @include flex-center;
+  z-index: 1000;
+  
+  .popup-content {
+    background-color: lighten($color-background, 10%);
+    padding: $spacing-medium;
+    border-radius: $border-radius-large;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    border: 2px solid $color-bitcoin;
+    
+    @include respond-to(mobile) {
+      width: 95%;
+      padding: $spacing-small;
+    }
+    
+    .close-button {
+      position: absolute;
+      top: $spacing-small;
+      right: $spacing-small;
+      background: none;
+      border: none;
+      color: $color-bitcoin;
+      font-size: $font-size-large;
+      cursor: pointer;
+      padding: calc($spacing-small / 2);
+      
+      &:hover {
+        color: $color-text;
+      }
+    }
+
+    .explanation-header {
+      color: $color-bitcoin;
+      font-size: $font-size-large;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: $spacing-medium;
+      padding-top: $spacing-small;
+    }
+    
+    .explanation-text {
+      color: $color-text;
+      font-size: $font-size-medium;
+      line-height: 1.6;
+      
+      @include respond-to(mobile) {
+        font-size: $font-size-small;
+      }
+    }
+  }
+}

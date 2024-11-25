@@ -1,0 +1,501 @@
+// Mixins für fortgeschrittene Effekte
+@mixin holographic-effect {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      $color-bitcoin,
+      darken($color-bitcoin, 20%),
+      lighten($color-bitcoin, 20%),
+      $color-bitcoin
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(8px);
+    z-index: -1;
+  }
+}
+
+@mixin matrix-background {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '10';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    font-family: monospace;
+    font-size: 10px;
+    line-height: 10px;
+    white-space: nowrap;
+    transform: rotate(45deg);
+    color: rgba($color-bitcoin, 0.1);
+    animation: matrixRain 20s linear infinite;
+    pointer-events: none;
+  }
+}
+
+@mixin neon-glow($color, $intensity: 1) {
+  box-shadow: 
+    0 0 5px rgba($color, $intensity * 0.2),
+    0 0 10px rgba($color, $intensity * 0.2),
+    0 0 15px rgba($color, $intensity * 0.2),
+    0 0 20px rgba($color, $intensity * 0.1);
+}
+
+@mixin cyber-text {
+  position: relative;
+  text-shadow: 
+    0 0 1px rgba(white, 0.5),
+    0 0 5px rgba($color-bitcoin, 0.5),
+    0 0 15px rgba($color-bitcoin, 0.3);
+  letter-spacing: 2px;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(90deg, transparent, rgba($color-bitcoin, 0.2), transparent);
+    filter: blur(2px);
+    z-index: -1;
+  }
+}
+
+@mixin cyber-edges($color, $size: 2px) {
+  clip-path: polygon(
+    0 $size,
+    $size 0,
+    calc(100% - #{$size}) 0,
+    100% $size,
+    100% calc(100% - #{$size}),
+    calc(100% - #{$size}) 100%,
+    $size 100%,
+    0 calc(100% - #{$size})
+  );
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba($color, 0.3) 50%,
+      transparent 100%
+    );
+    clip-path: inherit;
+    animation: edgeGlow 3s ease infinite;
+  }
+}
+
+.question-container {
+  @include flex-center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: $spacing-medium;
+  position: relative;
+  perspective: 2000px;
+  transform-style: preserve-3d;
+  
+  // Futuristic background layers
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -50px;
+    background: 
+      repeating-linear-gradient(
+        transparent 0%,
+        rgba($color-bitcoin, 0.05) 1px,
+        transparent 2px,
+        transparent 30px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba($color-bitcoin, 0.05) 1px,
+        transparent 2px,
+        transparent 30px
+      ),
+      radial-gradient(
+        rgba($color-bitcoin, 0.1) 1px,
+        transparent 2px
+      ) 0 0 / 30px 30px;
+    transform: 
+      perspective(1000px) 
+      rotateX(60deg) 
+      translateZ(-100px)
+      scale(2);
+    filter: blur(1px);
+    opacity: 0.7;
+    animation: matrixBg 15s linear infinite;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  // Holographic overlay
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 25%,
+      rgba($color-bitcoin, 0.1) 50%,
+      rgba(255, 255, 255, 0.05) 75%,
+      transparent 100%
+    );
+    background-size: 400% 400%;
+    animation: holoShift 10s ease infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .question-text {
+    font-size: $font-size-large;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: $spacing-medium;
+    padding: $spacing-large;
+    position: relative;
+    transform-style: preserve-3d;
+    @include cyber-text;
+    z-index: 2;
+    
+    &::before {
+      z-index: -1;
+    }
+    
+    &::after {
+      z-index: -1;
+    }
+
+    @include respond-to(mobile) {
+      font-size: $font-size-medium;
+      padding: $spacing-medium;
+    }
+  }
+
+  .answer-buttons {
+    display: flex;
+    gap: $spacing-medium;
+    margin-top: auto;
+    padding: $spacing-medium;
+    position: relative;
+    transform-style: preserve-3d;
+    z-index: 10;
+
+    // Neural network connections
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      width: 100%;
+      height: 2px;
+      background: 
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba($color-bitcoin, 0.5),
+          transparent
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 10px,
+          rgba($color-bitcoin, 0.2) 10px,
+          rgba($color-bitcoin, 0.2) 20px
+        );
+      filter: drop-shadow(0 0 5px rgba($color-bitcoin, 0.3));
+      animation: neuralFlow 2s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    &::after {
+      top: auto;
+      bottom: -20px;
+      transform: scaleX(-1);
+      animation-delay: -1s;
+    }
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px;
+      gap: $spacing-small;
+    }
+
+    .answer-button {
+      padding: $spacing-medium $spacing-large;
+      font-size: $font-size-medium;
+      font-weight: 600;
+      border: none;
+      position: relative;
+      cursor: pointer;
+      background: rgba(black, 0.3);
+      color: white;
+      letter-spacing: 1px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-width: 120px;
+      z-index: 20;
+      
+      // Cyber edges without clip-path
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: transparent;
+        border: 2px solid rgba($color-bitcoin, 0.3);
+        animation: edgeGlow 3s ease infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      // Quantum effect
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at var(--x, 50%) var(--y, 50%),
+          rgba(white, 0.2) 0%,
+          transparent 50%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      &:hover {
+        transform: translateY(-2px) scale(1.02);
+        @include neon-glow($color-bitcoin, 1.5);
+        
+        &::after {
+          opacity: 1;
+        }
+      }
+
+      &:active {
+        transform: translateY(1px) scale(0.98);
+      }
+
+      &.yes {
+        background: linear-gradient(
+          135deg,
+          rgba($color-bitcoin, 0.8),
+          rgba($color-bitcoin, 0.6)
+        );
+        
+        &:hover {
+          background: linear-gradient(
+            135deg,
+            rgba($color-bitcoin, 0.9),
+            rgba($color-bitcoin, 0.7)
+          );
+        }
+      }
+
+      &.no {
+        background: linear-gradient(
+          135deg,
+          rgba($color-background-light, 0.8),
+          rgba($color-background-light, 0.6)
+        );
+        
+        &:hover {
+          background: linear-gradient(
+            135deg,
+            rgba($color-background-light, 0.9),
+            rgba($color-background-light, 0.7)
+          );
+        }
+      }
+    }
+  }
+}
+
+// Advanced Animations
+@keyframes matrixBg {
+  0% {
+    background-position: 0 0;
+    transform: 
+      perspective(1000px) 
+      rotateX(60deg) 
+      translateZ(-100px)
+      scale(2);
+  }
+  100% {
+    background-position: 0 30px;
+    transform: 
+      perspective(1000px) 
+      rotateX(60deg) 
+      translateZ(-50px)
+      scale(2);
+  }
+}
+
+@keyframes holoShift {
+  0%, 100% {
+    background-position: 0% 50%;
+    opacity: 0.5;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 0.8;
+  }
+}
+
+@keyframes textFloat {
+  0%, 100% {
+    transform: translateZ(0) rotateX(0deg);
+  }
+  50% {
+    transform: translateZ(30px) rotateX(2deg);
+  }
+}
+
+@keyframes chromaticShift {
+  0%, 100% {
+    filter: 
+      blur(1px)
+      hue-rotate(0deg)
+      brightness(1);
+  }
+  50% {
+    filter: 
+      blur(2px)
+      hue-rotate(90deg)
+      brightness(1.2);
+  }
+}
+
+@keyframes edgeGlow {
+  0%, 100% {
+    opacity: 0.3;
+    filter: blur(1px);
+  }
+  50% {
+    opacity: 0.8;
+    filter: blur(2px);
+  }
+}
+
+@keyframes neuralFlow {
+  0% {
+    background-position: 0 0;
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 40px 0;
+    opacity: 0.5;
+  }
+}
+
+@keyframes floatInSpace {
+  0%, 100% {
+    transform: translateZ(0) rotateX(0);
+  }
+  50% {
+    transform: translateZ(30px) rotateX(5deg);
+  }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes glitchTop {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+  }
+  20% {
+    clip-path: inset(20% 0 0 0);
+  }
+  40% {
+    clip-path: inset(40% 0 20% 0);
+  }
+  60% {
+    clip-path: inset(60% 0 40% 0);
+  }
+  80% {
+    clip-path: inset(80% 0 60% 0);
+  }
+}
+
+@keyframes glitchBottom {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+  }
+  20% {
+    clip-path: inset(0 0 20% 0);
+  }
+  40% {
+    clip-path: inset(20% 0 40% 0);
+  }
+  60% {
+    clip-path: inset(40% 0 60% 0);
+  }
+  80% {
+    clip-path: inset(60% 0 80% 0);
+  }
+}
+
+@keyframes neuralPulse {
+  0% {
+    background-position: 0 0;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 20px 0;
+    opacity: 0.3;
+  }
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    transform: translateZ(20px) scale(1);
+  }
+  50% {
+    transform: translateZ(20px) scale(1.05);
+  }
+}
+
+@keyframes matrixRain {
+  0% {
+    transform: translateY(-50%) rotate(45deg);
+  }
+  100% {
+    transform: translateY(50%) rotate(45deg);
+  }
+}
+
+@keyframes gridMove {
+  0% {
+    transform: perspective(1000px) rotateX(60deg) translateY(0);
+  }
+  100% {
+    transform: perspective(1000px) rotateX(60deg) translateY(20px);
+  }
+}
