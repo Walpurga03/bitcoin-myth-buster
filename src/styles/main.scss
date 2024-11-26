@@ -1,13 +1,13 @@
 // Abstracts
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
 
 // Base
-@import 'base/reset';
+@use 'base/reset';
 
 // Components
-@import 'components/question';
-@import 'components/explanation-popup';
+@use 'components/question';
+@use 'components/explanation-popup';
 
 .app {
   position: fixed;
