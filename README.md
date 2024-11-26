@@ -1,51 +1,47 @@
-# React + TypeScript + Vite
+# Bitcoin Myth Buster
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Eine interaktive Web-App, die häufige Missverständnisse über Bitcoin aufklärt.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 30+ sorgfältig recherchierte Bitcoin-Mythen und Fakten
+- Interaktives Ja/Nein Quiz-Format
+- Detaillierte Erklärungen zu jedem Thema
+- Moderne, responsive Benutzeroberfläche
+- Optimiert für Desktop und Mobile
 
-## Expanding the ESLint configuration
+## Technologien
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React 18
+- TypeScript
+- Vite
+- Sass
+- Framer Motion für Animationen
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+# Repository klonen
+git clone https://github.com/Walpurga03/bitcoin-myth-buster.git
+
+# In das Projektverzeichnis wechseln
+cd bitcoin-myth-buster
+
+# Dependencies installieren
+npm install
+
+# Entwicklungsserver starten
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Deployment
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Die App wird automatisch via GitHub Actions auf GitHub Pages deployed, wenn Änderungen auf den main Branch gepusht werden.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
-# bitcoin-myth-buster
+## Lizenz
+
+MIT
+
+## Beitragen
+
+Vorschläge und Pull Requests sind willkommen. Für größere Änderungen erstellen Sie bitte zuerst ein Issue, um zu diskutieren, was Sie ändern möchten.

@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
 
@@ -12,7 +13,7 @@
   z-index: 1000;
   
   .popup-content {
-    background-color: lighten($color-background, 10%);
+    background-color: color.scale($color-background, $lightness: 10%);
     padding: $spacing-medium;
     border-radius: $border-radius-large;
     max-width: 600px;
