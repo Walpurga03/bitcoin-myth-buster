@@ -60,8 +60,8 @@ export const SpeakerButton = ({ text }: SpeakerButtonProps) => {
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'de-DE';
-    utterance.rate = 0.9; // Etwas langsamer sprechen
-    utterance.pitch = 0.9; // Etwas tiefere Stimme für männlicheren Klang
+    utterance.rate = 1.5; // Etwas langsamer sprechen
+    utterance.pitch = 0.5; // Etwas tiefere Stimme für männlicheren Klang
     
     if (germanVoice) {
       utterance.voice = germanVoice;

@@ -1,37 +1,200 @@
 @use "sass:color";
+@use "sass:math";
 @use "../../styles/abstracts/variables" as *;
 @use "../../styles/abstracts/mixins" as *;
 
-.speaker-controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+// Custom properties
+:root {
+  --button-size: clamp(44px, 5vw, 48px);
+  --icon-size: calc(var(--button-size) * 0.5);
+  --glow-strength: 0.7;
+  --animation-timing: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .speaker-button {
-  background: none;
+  position: relative;
+  width: var(--button-size);
+  height: var(--button-size);
   border: none;
-  cursor: pointer;
-  padding: 8px;
   border-radius: 50%;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $color-text;
+  cursor: pointer;
+  isolation: isolate;
+  transition: transform 0.4s var(--animation-timing);
   
-  &:hover {
-    background-color: rgba($color-bitcoin, 0.1);
+  // Glass background
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      color.adjust($color-background, $lightness: 15%, $alpha: 0.95),
+      color.adjust($color-background, $lightness: 5%, $alpha: 0.95)
+    );
+    backdrop-filter: blur(4px) brightness(1.1);
+    z-index: -2;
   }
   
-  &.playing {
-    color: $color-bitcoin;
-    background-color: rgba($color-bitcoin, 0.1);
+  // Animated border
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      var(--rotate, 0deg),
+      $color-bitcoin,
+      transparent 60%
+    );
+    mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    animation: rotateGradient 4s linear infinite;
   }
-
+  
+  // Neuomorphic shadow
+  box-shadow:
+    4px 4px 8px rgba(0, 0, 0, 0.2),
+    -2px -2px 4px rgba(255, 255, 255, 0.05),
+    0 0 0 1px color.adjust($color-bitcoin, $alpha: -0.9);
+  
   svg {
-    width: 24px;
-    height: 24px;
+    position: relative;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    color: $color-bitcoin;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: all 0.4s var(--animation-timing);
+    z-index: 1;
+  }
+  
+  // Hover effects
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+      --glow-strength: 1;
+      
+      &::before {
+        background: linear-gradient(
+          135deg,
+          color.adjust($color-bitcoin, $lightness: -20%, $alpha: 0.15),
+          color.adjust($color-bitcoin, $lightness: -30%, $alpha: 0.1)
+        );
+      }
+      
+      &::after {
+        opacity: 1;
+      }
+      
+      svg {
+        transform: scale(1.1);
+        color: color.adjust($color-bitcoin, $lightness: 10%);
+        filter: 
+          drop-shadow(0 0 8px color.adjust($color-bitcoin, $alpha: -0.7))
+          drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+      }
+    }
+  }
+  
+  &:active {
+    transform: translateY(0) scale(0.95);
+  }
+  
+  // Playing state
+  &.playing {
+    animation: buttonPulse 2s infinite;
+    
+    &::before {
+      background: linear-gradient(
+        135deg,
+        color.adjust($color-bitcoin, $lightness: -20%, $alpha: 0.2),
+        color.adjust($color-bitcoin, $lightness: -30%, $alpha: 0.15)
+      );
+    }
+    
+    svg {
+      color: $color-bitcoin;
+      animation: iconPulse 2s infinite;
+    }
+    
+    // Sound wave effect
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -20%;
+      border-radius: 50%;
+      background: transparent;
+      border: 2px solid color.adjust($color-bitcoin, $alpha: -0.9);
+      animation: soundWave 2s infinite;
+      z-index: -1;
+    }
+  }
+}
+
+// Advanced Animations
+@keyframes buttonPulse {
+  0% {
+    box-shadow:
+      4px 4px 8px rgba(0, 0, 0, 0.2),
+      -2px -2px 4px rgba(255, 255, 255, 0.05),
+      0 0 0 1px color.adjust($color-bitcoin, $alpha: -0.9),
+      0 0 0 0 color.adjust($color-bitcoin, $alpha: -0.7);
+  }
+  70% {
+    box-shadow:
+      4px 4px 8px rgba(0, 0, 0, 0.2),
+      -2px -2px 4px rgba(255, 255, 255, 0.05),
+      0 0 0 1px color.adjust($color-bitcoin, $alpha: -0.9),
+      0 0 20px 10px color.adjust($color-bitcoin, $alpha: -1);
+  }
+  100% {
+    box-shadow:
+      4px 4px 8px rgba(0, 0, 0, 0.2),
+      -2px -2px 4px rgba(255, 255, 255, 0.05),
+      0 0 0 1px color.adjust($color-bitcoin, $alpha: -0.9),
+      0 0 0 0 color.adjust($color-bitcoin, $alpha: -1);
+  }
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: 
+      drop-shadow(0 0 8px color.adjust($color-bitcoin, $alpha: -0.6))
+      drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+}
+
+@keyframes rotateGradient {
+  from { --rotate: 0deg; }
+  to { --rotate: 360deg; }
+}
+
+@keyframes soundWave {
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
   }
 }
 
