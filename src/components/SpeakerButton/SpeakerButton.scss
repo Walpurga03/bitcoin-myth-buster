@@ -1,0 +1,59 @@
+@use "sass:color";
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+.speaker-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.speaker-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text;
+  
+  &:hover {
+    background-color: rgba($color-bitcoin, 0.1);
+  }
+  
+  &.playing {
+    color: $color-bitcoin;
+    background-color: rgba($color-bitcoin, 0.1);
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.voice-select {
+  background-color: color.adjust($color-background, $lightness: 10%);
+  color: $color-text;
+  border: 1px solid rgba($color-bitcoin, 0.3);
+  border-radius: $border-radius-medium;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-width: 200px;
+
+  &:hover, &:focus {
+    border-color: $color-bitcoin;
+    outline: none;
+  }
+
+  option {
+    background-color: $color-background;
+    color: $color-text;
+    padding: 4px;
+  }
+}

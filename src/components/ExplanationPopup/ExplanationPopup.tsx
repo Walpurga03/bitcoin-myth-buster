@@ -1,4 +1,5 @@
 import React from 'react';
+import { SpeakerButton } from '../SpeakerButton/SpeakerButton';
 import './ExplanationPopup.scss';
 
 interface ExplanationPopupProps {
@@ -19,9 +20,14 @@ export const ExplanationPopup: React.FC<ExplanationPopupProps> = ({
   return (
     <div className="explanation-popup">
       <div className="explanation-popup__content">
-        <h2>{isCorrect ? "Richtig!" : "Falsch!"}</h2>
+        <div className="explanation-header">
+          <h2>{isCorrect ? 'Richtig!' : 'Nicht ganz...'}</h2>
+          <SpeakerButton text={explanation} />
+        </div>
         <p>{explanation}</p>
-        <button onClick={onClose}>Weiter</button>
+        <button className="close-button" onClick={onClose}>
+          Schließen
+        </button>
       </div>
     </div>
   );

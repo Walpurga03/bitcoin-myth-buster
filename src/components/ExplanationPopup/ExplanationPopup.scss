@@ -1,65 +1,56 @@
-@use '../../styles/abstracts/variables' as *;
-@use '../../styles/abstracts/mixins' as *;
+@use "sass:color";
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
 
 .explanation-popup {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color-background, 0.8);
+  @include flex-center;
   z-index: 1000;
-  opacity: 0;
-  transform: scale(0.9);
-  animation: fadeInScale 0.5s forwards;
-
+  
   &__content {
-    background-color: $color-background-light;
-    padding: $spacing-large;
+    background-color: color.adjust($color-background, $lightness: 10%);
+    padding: $spacing-medium;
     border-radius: $border-radius-large;
     max-width: 600px;
     width: 90%;
-    color: $color-text;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    animation: popUp 0.6s ease-out forwards;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    h2 {
-      color: $color-bitcoin;
-      font-size: $font-size-large;
+    .explanation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: $spacing-medium;
-      transform: translateY(-20px);
-      opacity: 0;
-      animation: slideDown 0.5s ease forwards 0.3s;
+
+      h2 {
+        margin: 0;
+        color: $color-bitcoin;
+      }
     }
 
     p {
-      font-size: $font-size-medium;
-      margin-bottom: $spacing-large;
-      line-height: 1.5;
-      transform: translateY(20px);
-      opacity: 0;
-      animation: slideUp 0.5s ease forwards 0.4s;
+      margin: $spacing-medium 0;
+      line-height: 1.6;
     }
 
-    button {
+    .close-button {
+      display: block;
+      width: 100%;
+      padding: $spacing-small;
       background-color: $color-bitcoin;
-      color: $color-text;
+      color: white;
       border: none;
-      padding: $spacing-small $spacing-medium;
-      font-size: $font-size-medium;
-      border-radius: $border-radius-default;
+      border-radius: $border-radius-medium;
       cursor: pointer;
-      transition: all 0.3s ease;
-      opacity: 0;
-      animation: fadeIn 0.5s ease forwards 0.6s;
+      transition: background-color 0.3s ease;
 
       &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 15px rgba($color-bitcoin, 0.3);
+        background-color: color.adjust($color-bitcoin, $lightness: -10%);
       }
     }
   }
