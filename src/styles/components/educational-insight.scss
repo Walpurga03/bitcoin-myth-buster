@@ -1,0 +1,77 @@
+.educational-insight {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .insight {
+    background: rgba(247, 147, 26, 0.1);
+    border: 2px solid #f7931a;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: 0 4px 20px rgba(247, 147, 26, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(247, 147, 26, 0.3);
+    }
+
+    &.quote {
+      blockquote {
+        margin: 0;
+        padding: 0;
+        border-left: none;
+        font-style: italic;
+        
+        p {
+          font-size: 1.2rem;
+          line-height: 1.6;
+          color: #ffffff;
+          margin-bottom: 15px;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+          font-size: 1rem;
+          color: #f7931a;
+          font-style: normal;
+
+          .author {
+            font-weight: 600;
+          }
+
+          .year {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+
+    &.empty {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+      background: rgba(255, 255, 255, 0.05);
+      border-color: #444;
+    }
+  }
+
+  // Animation für neue Quotes
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .insight {
+    animation: fadeInUp 0.5s ease-out;
+  }
+}

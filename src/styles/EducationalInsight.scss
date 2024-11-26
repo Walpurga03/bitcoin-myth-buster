@@ -1,0 +1,95 @@
+// Variables
+$bitcoin-orange: #f7931a;
+$dark-bg: rgba(26, 26, 26, 0.95);
+$text-color: #ffffff;
+$quote-shadow: 0 4px 30px rgba(247, 147, 26, 0.2);
+$border-glow: 0 0 15px rgba(247, 147, 26, 0.3);
+
+.educational-insight {
+  position: relative;
+  margin: 2rem 0;
+  padding: 2rem;
+  border-radius: 16px;
+  background: $dark-bg;
+  backdrop-filter: blur(10px);
+  border: 2px solid $bitcoin-orange;
+  box-shadow: $quote-shadow;
+  color: $text-color;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  
+  // Glassmorphism effect
+  &::before {
+    content: '"';
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    font-size: 4rem;
+    color: $bitcoin-orange;
+    opacity: 0.5;
+    font-family: Georgia, serif;
+  }
+
+  &::after {
+    content: '"';
+    position: absolute;
+    bottom: -2rem;
+    right: 1rem;
+    font-size: 4rem;
+    color: $bitcoin-orange;
+    opacity: 0.5;
+    font-family: Georgia, serif;
+  }
+
+  // Hover effect
+  &:hover {
+    box-shadow: $quote-shadow, $border-glow;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+
+  p {
+    color: $text-color;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  span {
+    color: $text-color;
+    display: block;
+    
+    &.author {
+      margin-top: 1rem;
+      font-size: 0.9em;
+      color: $bitcoin-orange;
+      font-style: italic;
+    }
+  }
+
+  * {
+    color: inherit;
+  }
+}
+
+.insight-container {
+  max-width: 800px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    max-width: 90%;
+    
+    .educational-insight {
+      font-size: 1.1rem;
+      padding: 1.5rem;
+      
+      &::before,
+      &::after {
+        font-size: 3rem;
+      }
+    }
+  }
+}
