@@ -1,8 +1,9 @@
- export interface Myth {
+export interface Myth {
   id: number;
   text: string;
   explanation: string;
   isMyth: boolean;
+  sourceIds?: string[]; // Optional, falls nicht immer benötigt
 }
 
 export const myths: Myth[] = [

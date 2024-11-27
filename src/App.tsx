@@ -43,11 +43,12 @@ function App() {
         />
         {showExplanation && (
           <ExplanationPopup
-            explanation={myths[currentQuestionIndex].explanation}
-            isOpen={showExplanation}
-            isCorrect={isAnswerCorrect}
-            onClose={handleCloseExplanation}
-          />
+          explanation={myths[currentQuestionIndex].explanation}
+          isOpen={showExplanation}
+          isCorrect={isAnswerCorrect}
+          onClose={handleCloseExplanation}
+          sourceIds={myths[currentQuestionIndex].sourceIds} // Stelle sicher, dass dies übergeben wird
+        />
         )}
       </div>
       {showQuote && (

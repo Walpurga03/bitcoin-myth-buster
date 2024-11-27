@@ -8,7 +8,7 @@ interface ExplanationPopupProps {
   isOpen: boolean;
   isCorrect: boolean;
   onClose: () => void;
-  sourceIds: string[];
+  sourceIds?: string[]; // Optional
 }
 
 export const ExplanationPopup: React.FC<ExplanationPopupProps> = ({
