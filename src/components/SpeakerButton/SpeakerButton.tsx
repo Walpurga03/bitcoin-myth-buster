@@ -16,114 +16,143 @@ const MALE_VOICE_NAMES = [
 export const SpeakerButton = ({ text }: SpeakerButtonProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [germanVoice, setGermanVoice] = useState<SpeechSynthesisVoice | null>(null);
-  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [isSupported, setIsSupported] = useState(false);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
-    const loadGermanVoice = () => {
-      const voices = window.speechSynthesis.getVoices();
-      setAvailableVoices(voices);
-
-      // Filter für deutsche Stimmen
-      const germanVoices = voices.filter(voice => 
-        voice.lang.startsWith('de') || 
-        voice.lang.startsWith('de-DE')
-      );
+    // Prüfe ob Speech Synthesis unterstützt wird
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window) {
+      setIsSupported(true);
       
-      if (germanVoices.length > 0) {
-        // Suche nach männlicher Stimme
-        const maleVoice = germanVoices.find(voice => 
-          MALE_VOICE_NAMES.some(name => 
-            voice.name.toLowerCase().includes(name.toLowerCase())
-          )
-        );
+      const loadGermanVoice = () => {
+        try {
+          const voices = window.speechSynthesis.getVoices();
+          
+          // Filter für deutsche Stimmen
+          const germanVoices = voices.filter(voice => 
+            voice.lang.startsWith('de') || 
+            voice.lang.startsWith('de-DE')
+          );
+          
+          if (germanVoices.length > 0) {
+            // Suche nach männlicher Stimme
+            const maleVoice = germanVoices.find(voice => 
+              MALE_VOICE_NAMES.some(name => 
+                voice.name.toLowerCase().includes(name.toLowerCase())
+              )
+            );
 
-        // Wenn keine explizit männliche Stimme gefunden wurde,
-        // versuche eine tiefere Stimme zu finden oder nehme die erste
-        const selectedVoice = maleVoice || germanVoices[0];
-        
-        console.log('Verfügbare Stimmen:', germanVoices.map(v => v.name));
-        console.log('Gewählte Stimme:', selectedVoice.name);
-        
-        setGermanVoice(selectedVoice);
+            // Versuche die beste Stimme zu finden
+            const selectedVoice = maleVoice || 
+              // Fallback: Versuche eine Stimme mit "Deutsch" im Namen zu finden
+              germanVoices.find(voice => voice.name.toLowerCase().includes('deutsch')) || 
+              // Sonst nimm die erste deutsche Stimme
+              germanVoices[0];
+            
+            console.log('Verfügbare deutsche Stimmen:', germanVoices.map(v => v.name).join(', '));
+            console.log('Gewählte Stimme:', selectedVoice.name);
+            
+            setGermanVoice(selectedVoice);
+          } else {
+            console.log('Keine deutsche Stimme gefunden');
+          }
+        } catch (error) {
+          console.error('Fehler beim Laden der Stimmen:', error);
+        }
+      };
+
+      // Versuche Stimmen sofort zu laden
+      loadGermanVoice();
+
+      // Registriere Event-Listener für das Laden der Stimmen
+      if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = loadGermanVoice;
       }
-    };
 
-    loadGermanVoice();
-    window.speechSynthesis.onvoiceschanged = loadGermanVoice;
-
-    return () => {
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.onvoiceschanged = null;
-    };
+      return () => {
+        try {
+          window.speechSynthesis.cancel();
+          if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = null;
+          }
+        } catch (error) {
+          console.error('Fehler beim Cleanup:', error);
+        }
+      };
+    } else {
+      console.log('Speech Synthesis wird nicht unterstützt');
+    }
   }, []);
 
-  // Debug-Funktion zum Anzeigen aller verfügbaren Stimmen
-  const logAvailableVoices = () => {
-    console.log('Alle verfügbaren Stimmen:');
-    availableVoices.forEach(voice => {
-      console.log(`Name: ${voice.name}, Sprache: ${voice.lang}, Geschlecht: ${voice.name.toLowerCase().includes('male') ? 'männlich' : 'unbekannt'}`);
-    });
-  };
-
   const handlePlay = () => {
-    if (!germanVoice) return;
-
-    // Für Debug-Zwecke
-    logAvailableVoices();
-
-    // Stoppe vorherige Wiedergabe
-    if (isPlaying) {
-      window.speechSynthesis.cancel();
-      setIsPlaying(false);
+    if (!isSupported || !germanVoice) {
+      setIsPlaying(!isPlaying);
+      setTimeout(() => setIsPlaying(false), 500);
       return;
     }
 
-    // Text in Sätze aufteilen für natürlichere Pausen
-    const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
-    let currentSentence = 0;
+    try {
+      // Stoppe vorherige Wiedergabe
+      if (isPlaying) {
+        window.speechSynthesis.cancel();
+        setIsPlaying(false);
+        return;
+      }
 
-    const speakSentence = (sentence: string) => {
-      const utterance = new SpeechSynthesisUtterance(sentence);
-      utterance.voice = germanVoice;
-      
-      // Optimierte Einstellungen für männlichere Stimme
-      utterance.rate = 0.85;    // Etwas langsamer
-      utterance.pitch = 0.8;    // Tiefere Stimme
-      utterance.volume = 1.0;   // Volle Lautstärke
+      // Text in Sätze aufteilen für natürlichere Pausen
+      const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+      let currentSentence = 0;
 
-      utterance.onstart = () => setIsPlaying(true);
-      utterance.onend = () => {
-        currentSentence++;
-        if (currentSentence < sentences.length) {
-          // Kurze Pause zwischen Sätzen
-          setTimeout(() => {
-            speakSentence(sentences[currentSentence]);
-          }, 300);
-        } else {
+      const speakSentence = (sentence: string) => {
+        try {
+          const utterance = new SpeechSynthesisUtterance(sentence.trim());
+          utterance.voice = germanVoice;
+          
+          // Optimierte Einstellungen für männlichere Stimme
+          utterance.rate = 0.85;    // Etwas langsamer
+          utterance.pitch = 0.8;    // Tiefere Stimme
+          utterance.volume = 1.0;   // Volle Lautstärke
+
+          utterance.onstart = () => setIsPlaying(true);
+          utterance.onend = () => {
+            currentSentence++;
+            if (currentSentence < sentences.length) {
+              // Kurze Pause zwischen Sätzen
+              setTimeout(() => {
+                speakSentence(sentences[currentSentence]);
+              }, 300);
+            } else {
+              setIsPlaying(false);
+            }
+          };
+
+          utterance.onerror = (event) => {
+            console.error('Fehler bei der Sprachausgabe:', event);
+            setIsPlaying(false);
+          };
+
+          utteranceRef.current = utterance;
+          window.speechSynthesis.speak(utterance);
+        } catch (error) {
+          console.error('Fehler beim Sprechen eines Satzes:', error);
           setIsPlaying(false);
         }
       };
 
-      utterance.onerror = () => {
-        console.error('Fehler bei der Sprachausgabe');
-        setIsPlaying(false);
-      };
-
-      utteranceRef.current = utterance;
-      window.speechSynthesis.speak(utterance);
-    };
-
-    speakSentence(sentences[0]);
+      speakSentence(sentences[0]);
+    } catch (error) {
+      console.error('Fehler beim Starten der Sprachausgabe:', error);
+      setIsPlaying(false);
+    }
   };
 
   return (
     <div className="speaker-controls">
       <button 
-        className={`speaker-button ${isPlaying ? 'playing' : ''}`}
+        className={`speaker-button ${isPlaying ? 'playing' : ''} ${!isSupported || !germanVoice ? 'unsupported' : ''}`}
         onClick={handlePlay}
         aria-label={isPlaying ? 'Stoppe Vorlesen' : 'Text vorlesen'}
-        title={isPlaying ? 'Stoppe Vorlesen' : 'Text vorlesen'}
+        title={!isSupported || !germanVoice ? 'Sprachausgabe nicht verfügbar' : (isPlaying ? 'Stoppe Vorlesen' : 'Text vorlesen')}
       >
         <svg 
           viewBox="0 0 24 24" 

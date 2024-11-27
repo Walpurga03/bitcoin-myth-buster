@@ -6,6 +6,7 @@
   --backdrop-blur: 12px;
   --glow-strength: 0.8;
   --line-color: rgba($color-bitcoin, 0.15);
+  --animation-timing: cubic-bezier(0.34, 1.56, 0.64, 1);
   
   position: fixed;
   inset: 0;
@@ -16,12 +17,15 @@
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: 1000;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; // Besseres Scrolling auf iOS
 
   &.visible {
     opacity: 1;
     pointer-events: auto;
   }
 
+  // Hintergrund-Effekt
   &::before {
     content: '';
     position: fixed;
@@ -44,6 +48,7 @@
   &__content {
     background: rgba(#000, 0.85);
     backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur)); // iOS Support
     border-radius: var(--border-radius);
     padding: var(--popup-padding);
     width: min(90vw, 600px);
@@ -51,21 +56,25 @@
     overflow-y: auto;
     transform: translateY(20px) scale(0.95);
     opacity: 0;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.3s var(--animation-timing);
     box-shadow: 
       0 0 0 1px rgba($color-bitcoin, 0.2),
       0 4px 20px rgba($color-bitcoin, 0.1);
 
+    // Mobile Anpassungen
     @media (max-width: 480px) {
       width: 100%;
       max-width: 100%;
-      height: 100vh;
-      max-height: 100vh;
+      min-height: 100vh;
+      margin: 0;
       border-radius: 0;
-      padding: 1rem;
+      transform: translateY(100%);
+      transition: transform 0.3s var(--animation-timing);
     }
-  
+
+    // Reduzierte Bewegung
     @media (prefers-reduced-motion: reduce) {
+      transform: none;
       transition: opacity 0.1s ease-in-out;
     }
   }
@@ -73,6 +82,10 @@
   &.visible &__content {
     transform: translateY(0) scale(1);
     opacity: 1;
+
+    @media (max-width: 480px) {
+      transform: translateY(0);
+    }
   }
 }
 
@@ -81,10 +94,15 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+  position: sticky;
+  top: 0;
+  background: inherit;
+  z-index: 2;
+  padding: 0.5rem 0;
 
   h2 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
     color: $color-bitcoin;
   }
 }
@@ -96,44 +114,38 @@
   cursor: pointer;
   color: rgba(white, 0.6);
   transition: color 0.3s ease;
+  border-radius: 50%;
 
   &:hover {
     color: white;
   }
 
+  &:focus-visible {
+    outline: 2px solid $color-bitcoin;
+    outline-offset: 2px;
+  }
+
   svg {
     width: 24px;
     height: 24px;
+    display: block;
   }
 }
 
 .explanation-body {
   position: relative;
+}
 
-  .explanation-text {
-    transition: all 0.3s ease;
-    opacity: 1;
-    transform: translateY(0);
-    
-    &.hidden {
-      opacity: 0;
-      transform: translateY(-20px);
-      position: absolute;
-      pointer-events: none;
-    }
-  }
+.explanation-text {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  transition: opacity 0.3s ease;
 
-  p {
-    margin: 0 0 1.5rem;
-    line-height: 1.6;
-    color: rgba(white, 0.9);
-  }
-
-  &.show-sources {
-    .sources-section {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  &.hidden {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
@@ -145,102 +157,39 @@
   background: none;
   border: none;
   color: $color-bitcoin;
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 0;
+  font-size: 1rem;
   cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
   transition: all 0.3s ease;
+  border: 1px solid rgba($color-bitcoin, 0.3);
 
   &:hover {
-    transform: translateX(5px);
+    background: rgba($color-bitcoin, 0.1);
+    border-color: rgba($color-bitcoin, 0.5);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-bitcoin;
+    outline-offset: 2px;
   }
 }
 
 .sources-section {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 
   h3 {
-    color: rgba(white, 0.9);
-    margin: 0 0 1rem;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: $color-bitcoin;
   }
 }
 
 .sources-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: grid;
   gap: 1rem;
-}
-
-.source-item {
-  .source-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background: rgba($color-bitcoin, 0.08);
-    border: 1px solid rgba($color-bitcoin, 0.2);
-    border-radius: 12px;
-    text-decoration: none;
-    color: white;
-    transition: all 0.3s ease;
-
-    @media (max-width: 480px) {
-      padding: 0.75rem;
-      font-size: 0.9rem;
-    }
-
-    &:hover {
-      background: rgba($color-bitcoin, 0.15);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba($color-bitcoin, 0.2);
-    }
-  }
-}
-
-.source-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  flex: 1;
-  min-width: 0;
-}
-
-.source-name {
-  font-weight: 600;
-  color: $color-bitcoin;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.source-description {
-  font-size: 0.9rem;
-  color: rgba(white, 0.7);
-  
-  @media (max-width: 480px) {
-    font-size: 0.8rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-}
-
-.source-type-icon {
-  font-size: 1.5rem;
-  margin-left: 1rem;
-  flex-shrink: 0;
-  
-  @media (max-width: 480px) {
-    font-size: 1.2rem;
-    margin-left: 0.5rem;
-  }
+  padding: 0;
+  list-style: none;
 }
 
 .source-item {
@@ -248,30 +197,59 @@
   border: 1px solid rgba($color-bitcoin, 0.1);
   border-radius: 12px;
   overflow: hidden;
+  transition: all 0.3s ease;
 
-  &.source-type-youtube::before {
-    content: "📺";
-    margin-right: 0.75rem;
-    font-size: 1.2rem;
+  &:hover {
+    background: rgba($color-bitcoin, 0.05);
+    border-color: rgba($color-bitcoin, 0.2);
+    transform: translateY(-2px);
   }
+}
 
-  &.source-type-podcast::before {
-    content: "🎙️";
-    margin-right: 0.75rem;
-    font-size: 1.2rem;
-  }
+.source-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  color: inherit;
+  text-decoration: none;
+  gap: 1rem;
 
-  &.source-type-blog::before {
-    content: "📝";
-    margin-right: 0.75rem;
-    font-size: 1.2rem;
+  &:focus-visible {
+    outline: 2px solid $color-bitcoin;
+    outline-offset: -2px;
   }
+}
 
-  &.source-type-website::before {
-    content: "🌐";
-    margin-right: 0.75rem;
-    font-size: 1.2rem;
-  }
+.source-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.source-name {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: $color-bitcoin;
+}
+
+.source-description {
+  display: block;
+  font-size: 0.875rem;
+  color: rgba(white, 0.7);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  max-height: 2.6em;
+  -webkit-box-orient: vertical;
+}
+
+.source-type-icon {
+  font-size: 1.5rem;
+  opacity: 0.7;
+  flex-shrink: 0;
 }
 
 .explanation-controls {

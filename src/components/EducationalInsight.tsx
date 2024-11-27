@@ -4,22 +4,13 @@ import '../styles/EducationalInsight.scss';
 
 interface EducationalInsightProps {
   onClose: () => void;
-  category?: 'security' | 'history' | 'economics' | 'freedom' | 'technology' | 'all';
 }
 
-export const EducationalInsight: React.FC<EducationalInsightProps> = ({ 
-  onClose,
-  category = 'all'
-}) => {
+export const EducationalInsight: React.FC<EducationalInsightProps> = ({ onClose }) => {
   const [isVisible, setIsVisible] = useState(true);
 
-  const getRandomQuote = (): Quote | null => {
-    const filteredQuotes = category === 'all' 
-      ? quotes 
-      : quotes.filter(q => q.category === category);
-
-    if (filteredQuotes.length === 0) return null;
-    return filteredQuotes[Math.floor(Math.random() * filteredQuotes.length)];
+  const getRandomQuote = (): Quote => {
+    return quotes[Math.floor(Math.random() * quotes.length)];
   };
 
   const handleClose = () => {
@@ -29,7 +20,6 @@ export const EducationalInsight: React.FC<EducationalInsightProps> = ({
 
   const renderQuote = () => {
     const quote = getRandomQuote();
-    if (!quote) return <div className="insight empty">Keine Zitate verfügbar.</div>;
 
     return (
       <div className={`insight quote ${isVisible ? 'visible' : ''}`}>
@@ -41,10 +31,7 @@ export const EducationalInsight: React.FC<EducationalInsightProps> = ({
         <blockquote>
           <p>"{quote.text}"</p>
           <footer>
-            {quote.author !== "----" && (
-              <span className="author">- {quote.author}</span>
-            )}
-            {quote.year && <span className="year">, {quote.year}</span>}
+            <span className="author">- {quote.author}</span>
           </footer>
         </blockquote>
       </div>
@@ -57,5 +44,3 @@ export const EducationalInsight: React.FC<EducationalInsightProps> = ({
     </div>
   );
 };
-
-export default EducationalInsight;
