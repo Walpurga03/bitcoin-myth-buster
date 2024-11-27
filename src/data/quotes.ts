@@ -114,5 +114,45 @@ export const quotes: Quote[] = [
     id: 22,
     text: "Bitcoin-Mining ist wie ein globaler Wettbewerb - die Belohnung wird alle vier Jahre halbiert, um Bitcoin knapp zu halten.",
     author: "Saifedean Ammous"
+  },
+  {
+    id: 23,
+    text: "Bitcoin ist nicht nur Geld für das Internet. Es ist das Internet des Geldes.",
+    author: "Andreas Antonopoulos"
+  },
+  {
+    id: 24,
+    text: "Bitcoin ist eine Wette auf die Zukunft der Menschheit.",
+    author: "Naval Ravikant"
+  },
+  {
+    id: 25,
+    text: "Bitcoin ist Gold 2.0.",
+    author: "Cameron Winklevoss"
+  },
+  {
+    id: 26,
+    text: "Wir haben nie daran gezweifelt, dass Bitcoin die beste Investition ist.",
+    author: "Tyler Winklevoss"
+  },
+  {
+    id: 27,
+    text: "Bitcoin verändert alles für das Bessere.",
+    author: "Jack Dorsey"
+  },
+  {
+    id: 28,
+    text: "Bitcoin ist eine brillante Idee.",
+    author: "Elon Musk"
+  },
+  {
+    id: 29,
+    text: "Bitcoin ist besser als Währung.",
+    author: "Bill Gates"
+  },
+  {
+    id: 30,
+    text: "Bitcoin ist eine Versicherung gegen die Korruption der Fiat-Währungen.",
+    author: "Chamath Palihapitiya"
   }
 ];

@@ -4,6 +4,7 @@ import { ExplanationPopup } from './components/ExplanationPopup/ExplanationPopup
 import StartAnimation from './components/StartAnimation/StartAnimation';
 import { EducationalInsight } from './components/EducationalInsight';
 import { myths } from './data/myths';
+import { quotes, Quote } from './data/quotes';
 import { initializeButtonEffects } from './utils/buttonEffects';
 import './styles/main.scss';
 
@@ -13,6 +14,8 @@ function App() {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [showStartAnimation, setShowStartAnimation] = useState(true);
   const [showQuote, setShowQuote] = useState(false);
+  const [randomQuote, setRandomQuote] = useState<Quote | null>(null);
+  const [displayedQuotes, setDisplayedQuotes] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     const cleanup = initializeButtonEffects();
@@ -23,11 +26,31 @@ function App() {
     const isCorrect = answer === myths[currentQuestionIndex].isMyth;
     setIsAnswerCorrect(isCorrect);
     setShowExplanation(true);
+    setRandomQuote(getRandomQuote());
   };
 
   const handleCloseExplanation = () => {
     setShowExplanation(false);
     setShowQuote(true);
+  };
+
+  const getRandomQuote = () => {
+    if (displayedQuotes.size === quotes.length) {
+      // Alle Zitate wurden angezeigt, zurücksetzen
+      setDisplayedQuotes(new Set());
+    }
+
+    let randomIndex;
+    let randomQuote;
+    do {
+      randomIndex = Math.floor(Math.random() * quotes.length);
+      randomQuote = quotes[randomIndex];
+    } while (displayedQuotes.has(randomQuote.id));
+
+    // Füge das Zitat zu den angezeigten Zitaten hinzu
+    setDisplayedQuotes(prev => new Set(prev).add(randomQuote.id));
+
+    return randomQuote;
   };
 
   if (showStartAnimation) {
@@ -43,14 +66,26 @@ function App() {
         />
         {showExplanation && (
           <ExplanationPopup
-          explanation={myths[currentQuestionIndex].explanation}
-          isOpen={showExplanation}
-          isCorrect={isAnswerCorrect}
-          onClose={handleCloseExplanation}
-          sourceIds={myths[currentQuestionIndex].sourceIds} // Stelle sicher, dass dies übergeben wird
-        />
+            explanation={myths[currentQuestionIndex].explanation}
+            isOpen={showExplanation}
+            isCorrect={isAnswerCorrect}
+            onClose={handleCloseExplanation}
+            sourceIds={myths[currentQuestionIndex].sourceIds}
+          />
         )}
       </div>
+      {showQuote && randomQuote && (
+        <div className="quote-display">
+          <p>{randomQuote.text}</p>
+          <p>- {randomQuote.author}</p>
+        </div>
+      )}
+      {showQuote && (
+        <>
+          <div className="overlay" />
+          <button onClick={() => setShowQuote(false)} className="close-quote">Close Quote</button>
+        </>
+      )}
       {showQuote && (
         <>
           <div className="overlay" />

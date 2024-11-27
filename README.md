@@ -1,22 +1,23 @@
 # Bitcoin Myth Buster
 
-Eine interaktive Web-App, die häufige Missverständnisse über Bitcoin aufklärt.
+Bitcoin Myth Buster ist eine interaktive Bildungsplattform, die darauf abzielt, häufige Missverständnisse über Bitcoin zu entlarven und aufzuklären. Die App bietet Benutzern die Möglichkeit, ihr Wissen über Bitcoin durch ein unterhaltsames und informatives Quiz-Format zu testen.
 
 ## Features
 
-- 30+ sorgfältig recherchierte Bitcoin-Mythen und Fakten
-- Interaktives Ja/Nein Quiz-Format
-- Detaillierte Erklärungen zu jedem Thema
-- Moderne, responsive Benutzeroberfläche
-- Optimiert für Desktop und Mobile
+- **Umfassende Inhalte**: Über 30 sorgfältig recherchierte Mythen und Fakten rund um Bitcoin.
+- **Interaktives Quiz**: Ein Ja/Nein-Format, das Benutzer herausfordert und gleichzeitig lehrreich ist.
+- **Detaillierte Erklärungen**: Zu jedem Mythos gibt es umfassende Erklärungen, die Benutzer aufklären und informieren.
+- **Moderne Benutzeroberfläche**: Ein ansprechendes Design mit modernen UI-Techniken wie Glassmorphism und ansprechenden Animationen.
+- **Responsives Design**: Optimiert für die Nutzung auf Desktop und mobilen Geräten.
 
 ## Technologien
 
-- React 18
-- TypeScript
-- Vite
-- Sass
-- Framer Motion für Animationen
+- **React 18**: Für die Erstellung der Benutzeroberfläche.
+- **TypeScript**: Zur Verbesserung der Codequalität und Wartbarkeit.
+- **Vite**: Für schnelle Entwicklungs- und Build-Prozesse.
+- **Sass**: Für erweiterte Styling-Optionen.
+- **Framer Motion**: Für ansprechende und flüssige Animationen.
+- **Speech Synthesis API**: Ermöglicht es der App, Erklärungen vorzulesen.
 
 ## Installation
 
@@ -36,12 +37,20 @@ npm run dev
 
 ## Deployment
 
-Die App wird automatisch via GitHub Actions auf GitHub Pages deployed, wenn Änderungen auf den main Branch gepusht werden.
+Die App wird automatisch über GitHub Actions auf GitHub Pages bereitgestellt, wenn Änderungen am Hauptbranch vorgenommen werden.
 
 ## Lizenz
 
-MIT
+Dieses Projekt steht unter der MIT-Lizenz.
 
 ## Beitragen
 
-Vorschläge und Pull Requests sind willkommen. Für größere Änderungen erstellen Sie bitte zuerst ein Issue, um zu diskutieren, was Sie ändern möchten.
+Beiträge sind willkommen! Bitte erstellen Sie ein Issue, um größere Änderungen zu diskutieren, bevor Sie einen Pull Request einreichen. Wir freuen uns über Vorschläge zur Verbesserung der Benutzererfahrung oder zur Erweiterung der Inhalte.
+
+## Zielgruppe
+
+Diese App richtet sich an alle, die mehr über Bitcoin erfahren möchten, sei es Anfänger oder erfahrene Benutzer, die ihr Wissen auffrischen möchten.
+
+## Kontakt
+
+Für Fragen oder Anregungen wenden Sie sich bitte an [Ihre E-Mail-Adresse].
