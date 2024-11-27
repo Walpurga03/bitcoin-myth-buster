@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { quotes, Quote } from '../data/quotes';
+import '../styles/EducationalInsight.scss';
 
 interface EducationalInsightProps {
+  onClose: () => void;
   category?: 'security' | 'history' | 'economics' | 'freedom' | 'technology' | 'all';
 }
 
 export const EducationalInsight: React.FC<EducationalInsightProps> = ({ 
+  onClose,
   category = 'all'
 }) => {
+  const [isVisible, setIsVisible] = useState(true);
+
   const getRandomQuote = (): Quote | null => {
     const filteredQuotes = category === 'all' 
       ? quotes 
@@ -17,12 +22,22 @@ export const EducationalInsight: React.FC<EducationalInsightProps> = ({
     return filteredQuotes[Math.floor(Math.random() * filteredQuotes.length)];
   };
 
+  const handleClose = () => {
+    setIsVisible(false);
+    onClose();
+  };
+
   const renderQuote = () => {
     const quote = getRandomQuote();
     if (!quote) return <div className="insight empty">Keine Zitate verfügbar.</div>;
 
     return (
-      <div className="insight quote">
+      <div className={`insight quote ${isVisible ? 'visible' : ''}`}>
+        <button className="close-button" onClick={handleClose}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
         <blockquote>
           <p>"{quote.text}"</p>
           <footer>
@@ -38,7 +53,7 @@ export const EducationalInsight: React.FC<EducationalInsightProps> = ({
 
   return (
     <div className="educational-insight">
-      {renderQuote()}
+      {isVisible && renderQuote()}
     </div>
   );
 };

@@ -1,95 +1,84 @@
-// Variables
-$bitcoin-orange: #f7931a;
-$dark-bg: rgba(26, 26, 26, 0.95);
-$text-color: #ffffff;
-$quote-shadow: 0 4px 30px rgba(247, 147, 26, 0.2);
-$border-glow: 0 0 15px rgba(247, 147, 26, 0.3);
+@use './abstracts/variables' as v;
 
 .educational-insight {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.insight {
   position: relative;
-  margin: 2rem 0;
-  padding: 2rem;
-  border-radius: 16px;
-  background: $dark-bg;
-  backdrop-filter: blur(10px);
-  border: 2px solid $bitcoin-orange;
-  box-shadow: $quote-shadow;
-  color: $text-color;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  text-align: center;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  
-  // Glassmorphism effect
-  &::before {
-    content: '"';
-    position: absolute;
-    top: -0.5rem;
-    left: 1rem;
-    font-size: 4rem;
-    color: $bitcoin-orange;
-    opacity: 0.5;
-    font-family: Georgia, serif;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: rgba(v.$color-bitcoin, 0.05);
+  border: 1px solid rgba(v.$color-bitcoin, 0.1);
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  &::after {
-    content: '"';
-    position: absolute;
-    bottom: -2rem;
-    right: 1rem;
-    font-size: 4rem;
-    color: $bitcoin-orange;
-    opacity: 0.5;
-    font-family: Georgia, serif;
-  }
-
-  // Hover effect
-  &:hover {
-    box-shadow: $quote-shadow, $border-glow;
-    transform: translateY(-2px);
-    transition: all 0.3s ease;
-  }
-
-  p {
-    color: $text-color;
-    margin: 0;
-    position: relative;
-    z-index: 1;
-  }
-
-  span {
-    color: $text-color;
-    display: block;
-    
-    &.author {
-      margin-top: 1rem;
-      font-size: 0.9em;
-      color: $bitcoin-orange;
+  &.quote {
+    blockquote {
+      margin: 0;
+      padding: 0;
       font-style: italic;
+      color: rgba(white, 0.9);
+
+      p {
+        margin: 0 0 1rem;
+        line-height: 1.6;
+        font-size: 1.1rem;
+
+        @media (max-width: 480px) {
+          font-size: 1rem;
+        }
+      }
+
+      footer {
+        color: rgba(white, 0.7);
+        font-size: 0.9rem;
+        font-style: normal;
+
+        .author {
+          color: v.$color-bitcoin;
+          font-weight: 500;
+        }
+
+        .year {
+          opacity: 0.8;
+        }
+      }
     }
   }
 
-  * {
-    color: inherit;
+  &.empty {
+    text-align: center;
+    color: rgba(white, 0.6);
+    padding: 2rem;
   }
 }
 
-.insight-container {
-  max-width: 800px;
-  margin: 0 auto;
-  
-  @media (max-width: 768px) {
-    max-width: 90%;
-    
-    .educational-insight {
-      font-size: 1.1rem;
-      padding: 1.5rem;
-      
-      &::before,
-      &::after {
-        font-size: 3rem;
-      }
-    }
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: rgba(white, 0.6);
+  transition: color 0.3s ease;
+  z-index: 10;
+
+  &:hover {
+    color: white;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
   }
 }
