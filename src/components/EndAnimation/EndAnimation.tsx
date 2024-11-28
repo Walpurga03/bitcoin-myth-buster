@@ -106,6 +106,14 @@ const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // setShowContent(true); // setShowContent is not defined in this code snippet
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="end-animation">
       <canvas ref={particlesRef} className="particles-canvas" />
@@ -116,7 +124,7 @@ const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
       
       <div className="end-animation__content visible">
         <div className="glowing-title">
-          <h2>Gratulation! 🎉</h2>
+          <h2 className="glowing">Gratulation! 🎉</h2>
           <div className="glowing-orbs">
             <div className="orb"></div>
             <div className="orb"></div>
@@ -162,7 +170,7 @@ const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
                   onClick={() => navigator.clipboard.writeText("git clone https://github.com/Walpurga03/bitcoin-myth-buster.git")} 
                   className="copy-button"
                 >
-                  Kopieren
+                📋
                 </button>
               </div>
             </div>
@@ -177,7 +185,7 @@ const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
                   onClick={handleCopyLightning}
                   className="copy-button"
                 >
-                  Kopieren
+                📋
                 </button>
               </div>
             </div>
@@ -192,7 +200,7 @@ const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
                   onClick={() => navigator.clipboard.writeText("npub1hht9umpeet75w55uzs9lq6ksayfpcvl9lk64hye75j0yj4husq5ss8xsry")} 
                   className="copy-button"
                 >
-                  Kopieren
+                📋
                 </button>
               </div>
             </div>

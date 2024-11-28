@@ -22,7 +22,6 @@ const StartAnimation: React.FC<StartAnimationProps> = ({ onComplete }) => {
   const animationFrameRef = useRef<number>();
   const logoRef = useRef<HTMLImageElement | null>(null);
   const [isAnimating, setIsAnimating] = useState(true);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Draw Bitcoin logo function
   const drawBitcoinLogo = useCallback((ctx: CanvasRenderingContext2D) => {
@@ -71,25 +70,6 @@ const StartAnimation: React.FC<StartAnimationProps> = ({ onComplete }) => {
 
     // Update and draw particles
     particlesRef.current.forEach((particle, i) => {
-      // Mouse repulsion
-      const dx = mousePosition.x - particle.x;
-      const dy = mousePosition.y - particle.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance < 100) {
-        const force = (1 - distance / 100) * 0.6;
-        particle.vx -= dx * force * 0.01;
-        particle.vy -= dy * force * 0.01;
-      }
-
-      // Apply velocity limits
-      const maxSpeed = 2;
-      const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
-      if (speed > maxSpeed) {
-        particle.vx = (particle.vx / speed) * maxSpeed;
-        particle.vy = (particle.vy / speed) * maxSpeed;
-      }
-
       // Update position
       particle.x += particle.vx;
       particle.y += particle.vy;
@@ -135,7 +115,7 @@ const StartAnimation: React.FC<StartAnimationProps> = ({ onComplete }) => {
 
     // Request next frame
     animationFrameRef.current = requestAnimationFrame(animate);
-  }, [isAnimating, mousePosition, drawBitcoinLogo]);
+  }, [isAnimating, drawBitcoinLogo]);
 
   useEffect(() => {
     // Load Bitcoin logo
@@ -186,9 +166,6 @@ const StartAnimation: React.FC<StartAnimationProps> = ({ onComplete }) => {
 
     // Event listeners
     window.addEventListener('resize', updateCanvasSize);
-    window.addEventListener('mousemove', (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    });
 
     // Cleanup
     return () => {
