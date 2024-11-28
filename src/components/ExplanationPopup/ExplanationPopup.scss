@@ -18,14 +18,14 @@
   transition: opacity 0.3s ease;
   z-index: 1000;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; // Besseres Scrolling auf iOS
+  -webkit-overflow-scrolling: touch;
 
   &.visible {
     opacity: 1;
     pointer-events: auto;
   }
 
-  // Hintergrund-Effekt
+  // Verbesserter Hintergrund-Effekt
   &::before {
     content: '';
     position: fixed;
@@ -33,22 +33,23 @@
     background: 
       radial-gradient(
         circle at 30% 40%,
-        rgba($color-bitcoin, 0.08),
+        rgba($color-bitcoin, 0.12),
         transparent 40%
       ),
       radial-gradient(
         circle at 70% 60%,
-        rgba($color-bitcoin, 0.06),
+        rgba($color-bitcoin, 0.08),
         transparent 35%
       );
     filter: blur(var(--backdrop-blur));
     z-index: -1;
+    animation: gradientShift 15s ease-in-out infinite alternate;
   }
 
   &__content {
     background: rgba(#000, 0.85);
     backdrop-filter: blur(var(--backdrop-blur));
-    -webkit-backdrop-filter: blur(var(--backdrop-blur)); // iOS Support
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
     border-radius: var(--border-radius);
     padding: var(--popup-padding);
     width: min(90vw, 600px);
@@ -59,7 +60,29 @@
     transition: all 0.3s var(--animation-timing);
     box-shadow: 
       0 0 0 1px rgba($color-bitcoin, 0.2),
-      0 4px 20px rgba($color-bitcoin, 0.1);
+      0 4px 20px rgba($color-bitcoin, 0.1),
+      0 0 40px rgba($color-bitcoin, 0.05);
+    border: 1px solid rgba($color-bitcoin, 0.1);
+
+    // Scrollbar Styling
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(#fff, 0.05);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba($color-bitcoin, 0.3);
+      border-radius: 4px;
+      
+      &:hover {
+        background: rgba($color-bitcoin, 0.4);
+      }
+    }
 
     // Mobile Anpassungen
     @media (max-width: 480px) {
@@ -72,7 +95,6 @@
       transition: transform 0.3s var(--animation-timing);
     }
 
-    // Reduzierte Bewegung
     @media (prefers-reduced-motion: reduce) {
       transform: none;
       transition: opacity 0.1s ease-in-out;
@@ -101,39 +123,78 @@
   padding: 0.5rem 0;
 
   h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
     margin: 0;
-    font-size: clamp(1.25rem, 4vw, 1.5rem);
-    color: $color-bitcoin;
-  }
-}
-
-.close-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 2rem;
-  height: 2rem;
-  padding: 0.4rem;
-  border: none;
-  border-radius: 50%;
-  background: rgba($color-bitcoin, 0.1);
-  color: $color-bitcoin;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: rgba($color-bitcoin, 0.2);
-    transform: scale(1.1);
+    background: linear-gradient(45deg, $color-bitcoin, lighten($color-bitcoin, 15%));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba($color-bitcoin, 0.3));
   }
 
-  svg {
-    width: 100%;
-    height: 100%;
+  .close-button {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    border: none;
+    background: rgba(#fff, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #fff;
+    display: grid;
+    place-items: center;
+
+    &:hover {
+      background: rgba($color-bitcoin, 0.2);
+      transform: scale(1.1);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
   }
 }
 
 .explanation-body {
   position: relative;
+
+  .explanation-text {
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    line-height: 1.6;
+    color: rgba(#fff, 0.9);
+    margin-bottom: 1.5rem;
+    
+    p {
+      margin: 0 0 1rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .explanation-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-color);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    transform: scale(1.1) rotate(5deg);
+  }
 }
 
 .explanation-text {

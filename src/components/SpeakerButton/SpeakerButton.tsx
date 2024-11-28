@@ -8,7 +8,7 @@ interface SpeakerButtonProps {
 // Liste von bekannten männlichen Stimmen
 const MALE_VOICE_KEYWORDS = ['male', 'männlich', 'stefan', 'hans', 'michael', 'klaus'];
 
-export const SpeakerButton = ({ text }: SpeakerButtonProps) => {
+const SpeakerButton = ({ text }: SpeakerButtonProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [germanVoice, setGermanVoice] = useState<SpeechSynthesisVoice | null>(null);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
@@ -60,7 +60,7 @@ export const SpeakerButton = ({ text }: SpeakerButtonProps) => {
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'de-DE';
-    utterance.rate = 0.9;  // 10% langsamer für bessere Verständlichkeit
+    utterance.rate = 1.1;  // 10% langsamer für bessere Verständlichkeit
     utterance.pitch = 0.6; // Leicht tiefere Stimme (0-2, normal ist 1.0)
     utterance.volume = 1.0; // Maximale Lautstärke
     
@@ -105,3 +105,5 @@ export const SpeakerButton = ({ text }: SpeakerButtonProps) => {
     </div>
   );
 };
+
+export default SpeakerButton;

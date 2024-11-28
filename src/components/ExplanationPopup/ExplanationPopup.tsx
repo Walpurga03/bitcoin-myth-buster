@@ -1,6 +1,11 @@
-import React from 'react';
-import { SpeakerButton } from '../SpeakerButton/SpeakerButton';
+import React, { lazy, Suspense } from 'react';
 import './ExplanationPopup.scss';
+
+const SpeakerButton = lazy(() => 
+  import('../SpeakerButton/SpeakerButton').then(module => ({
+    default: module.default
+  }))
+);
 
 interface ExplanationPopupProps {
   explanation: string;
@@ -46,7 +51,9 @@ export const ExplanationPopup: React.FC<ExplanationPopupProps> = ({
           </div>
 
           <div className="explanation-controls">
-            <SpeakerButton text={explanation} />
+            <Suspense fallback={<div className="speaker-loading">Lade...</div>}>
+              <SpeakerButton text={explanation} />
+            </Suspense>
           </div>
         </div>
       </div>
