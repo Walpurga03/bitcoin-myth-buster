@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './EndAnimation.scss';
 import { sources } from '../../data/sources';
-import './card-effects.js';
 
 interface EndAnimationProps {
   onComplete: () => void;
