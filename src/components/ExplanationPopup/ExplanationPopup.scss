@@ -108,27 +108,27 @@
 }
 
 .close-button {
-  background: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.4rem;
   border: none;
-  padding: 0.5rem;
-  cursor: pointer;
-  color: rgba(white, 0.6);
-  transition: color 0.3s ease;
   border-radius: 50%;
+  background: rgba($color-bitcoin, 0.1);
+  color: $color-bitcoin;
+  cursor: pointer;
+  transition: all 0.2s ease;
 
   &:hover {
-    color: white;
-  }
-
-  &:focus-visible {
-    outline: 2px solid $color-bitcoin;
-    outline-offset: 2px;
+    background: rgba($color-bitcoin, 0.2);
+    transform: scale(1.1);
   }
 
   svg {
-    width: 24px;
-    height: 24px;
-    display: block;
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -256,4 +256,5 @@
   margin-top: 2rem;
   display: flex;
   justify-content: flex-end;
+  gap: 1rem;
 }

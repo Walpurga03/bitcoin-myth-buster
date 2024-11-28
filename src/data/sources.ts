@@ -40,6 +40,19 @@ export const sources: Source[] = [
     ]
   },
   {
+    id: 'btc-akzeptieren',
+    name: 'BTC akzeptieren',
+    description: 'Bitcoin für Unternehmen',
+    type: 'website',
+    resources: [
+      {
+        title: 'Bitcoin akzeptieren',
+        description: 'Wie Unternehmen Bitcoin implementieren können',
+        url: 'https://btc-akzeptieren.info/'
+      }
+    ]
+  },
+  {
     id: 'aprycot',
     name: 'Aprycot Media',
     description: 'Bitcoin Bildungsplattform',

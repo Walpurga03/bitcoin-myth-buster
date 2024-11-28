@@ -1,32 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Question } from './components/Question/Question';
 import { ExplanationPopup } from './components/ExplanationPopup/ExplanationPopup';
 import StartAnimation from './components/StartAnimation/StartAnimation';
-import { EducationalInsight } from './components/EducationalInsight';
+import EndAnimation from './components/EndAnimation/EndAnimation';
 import { myths } from './data/myths';
-import { quotes, Quote } from './data/quotes';
-import { initializeButtonEffects } from './utils/buttonEffects';
+import { quotes } from './data/quotes';
 import './styles/main.scss';
 
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [showExplanation, setShowExplanation] = useState(false);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [showStartAnimation, setShowStartAnimation] = useState(true);
+  const [showEndAnimation, setShowEndAnimation] = useState(false);
   const [showQuote, setShowQuote] = useState(false);
-  const [randomQuote, setRandomQuote] = useState<Quote | null>(null);
-  const [displayedQuotes, setDisplayedQuotes] = useState<Set<number>>(new Set());
-
-  useEffect(() => {
-    const cleanup = initializeButtonEffects();
-    return () => cleanup();
-  }, []);
 
   const handleAnswer = (answer: boolean) => {
     const isCorrect = answer === myths[currentQuestionIndex].isMyth;
     setIsAnswerCorrect(isCorrect);
     setShowExplanation(true);
-    setRandomQuote(getRandomQuote());
   };
 
   const handleCloseExplanation = () => {
@@ -34,66 +27,62 @@ function App() {
     setShowQuote(true);
   };
 
-  const getRandomQuote = () => {
-    if (displayedQuotes.size === quotes.length) {
-      // Alle Zitate wurden angezeigt, zurücksetzen
-      setDisplayedQuotes(new Set());
+  const handleNextQuestion = () => {
+    setShowQuote(false);
+    
+    // Nächste Frage
+    if (currentQuestionIndex < myths.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setCurrentQuoteIndex(currentQuoteIndex + 1);
+      setShowExplanation(false);
+      setIsAnswerCorrect(false);
+    } else {
+      setShowEndAnimation(true);
     }
-
-    let randomIndex;
-    let randomQuote;
-    do {
-      randomIndex = Math.floor(Math.random() * quotes.length);
-      randomQuote = quotes[randomIndex];
-    } while (displayedQuotes.has(randomQuote.id));
-
-    // Füge das Zitat zu den angezeigten Zitaten hinzu
-    setDisplayedQuotes(prev => new Set(prev).add(randomQuote.id));
-
-    return randomQuote;
   };
 
   if (showStartAnimation) {
     return <StartAnimation onComplete={() => setShowStartAnimation(false)} />;
   }
 
+  if (showEndAnimation) {
+    return <EndAnimation onComplete={() => {
+      setShowEndAnimation(false);
+      setCurrentQuestionIndex(0);
+      setCurrentQuoteIndex(0);
+    }} />;
+  }
+
+  const currentQuestion = myths[currentQuestionIndex];
+  const currentQuote = quotes[currentQuoteIndex % quotes.length];
+
   return (
     <div className="app">
       <div className={`app__content ${showQuote ? 'blur-background' : ''}`}>
         <Question
-          questionText={myths[currentQuestionIndex].text}
+          questionText={currentQuestion.text}
           onAnswer={handleAnswer}
         />
         {showExplanation && (
           <ExplanationPopup
-            explanation={myths[currentQuestionIndex].explanation}
+            explanation={currentQuestion.explanation}
             isOpen={showExplanation}
             isCorrect={isAnswerCorrect}
             onClose={handleCloseExplanation}
-            sourceIds={myths[currentQuestionIndex].sourceIds}
           />
         )}
       </div>
-      {showQuote && randomQuote && (
-        <div className="quote-display">
-          <p>{randomQuote.text}</p>
-          <p>- {randomQuote.author}</p>
-        </div>
-      )}
-      {showQuote && (
+      {showQuote && currentQuote && (
         <>
           <div className="overlay" />
-          <button onClick={() => setShowQuote(false)} className="close-quote">Close Quote</button>
-        </>
-      )}
-      {showQuote && (
-        <>
-          <div className="overlay" />
-          <div className="insight-popup">
-            <EducationalInsight onClose={() => {
-              setShowQuote(false);
-              setCurrentQuestionIndex(prev => prev < myths.length - 1 ? prev + 1 : 0);
-            }} />
+          <div className="quote-container">
+            <div className="quote-box">
+              <p className="quote-text">{currentQuote.text}</p>
+              <p className="quote-author">- {currentQuote.author}</p>
+              <button onClick={handleNextQuestion} className="next-button">
+                Weiter
+              </button>
+            </div>
           </div>
         </>
       )}

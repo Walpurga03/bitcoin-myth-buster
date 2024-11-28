@@ -7,73 +7,73 @@ export interface Quote {
 export const quotes: Quote[] = [
   {
     id: 1,
+    text: "Das Lightning-Netzwerk macht Bitcoin-Zahlungen so schnell und günstig wie eine Kartenzahlung - perfekt für den Alltag.",
+    author: "Elizabeth Stark"
+  },
+  {
+    id: 2,
     text: "Die Finanzkrise von 2008 zeigte die Schwächen unseres Bankensystems: Banken wurden gerettet, während normale Bürger die Rechnung zahlten.",
     author: "Peter Schiff"
   },
   {
-    id: 2,
+    id: 3,
     text: "Bitcoin ermöglicht es Menschen, ihr Geld selbst zu verwalten - ohne Banken oder staatliche Kontrolle.",
     author: "Satoshi Nakamoto"
   },
   {
-    id: 3,
+    id: 4,
     text: "Inflation ist wie eine versteckte Steuer - sie macht unser Geld jeden Tag ein bisschen weniger wert.",
     author: "Milton Friedman"
   },
   {
-    id: 4,
+    id: 5,
     text: "Bitcoin ist sicher, solange die ehrlichen Teilnehmer zusammen stärker sind als mögliche Angreifer.",
     author: "Satoshi Nakamoto"
   },
   {
-    id: 5,
+    id: 6,
     text: "Digitales Geld wie Bitcoin verändert die Art, wie wir Werte austauschen - so wie E-Mail die Kommunikation verändert hat.",
     author: "Hal Finney"
   },
   {
-    id: 6,
+    id: 7,
     text: "Bitcoin mag technisch komplex sein, aber es löst ein wichtiges soziales Problem: Vertrauen in Geld ohne zentrale Kontrolle.",
     author: "Nick Szabo"
   },
   {
-    id: 7,
+    id: 8,
     text: "Durch Inflation kann die Regierung unbemerkt das Vermögen der Menschen verringern - die wenigsten durchschauen diesen Mechanismus.",
     author: "John Maynard Keynes"
   },
   {
-    id: 8,
+    id: 9,
     text: "Bitcoin ist wie digitales Gold - es kann nicht beliebig vermehrt werden und behält daher seinen Wert.",
     author: "Roger Ver"
   },
   {
-    id: 9,
+    id: 10,
     text: "Mit Bitcoin kann zum ersten Mal in der Geschichte Geld völlig unabhängig vom Staat existieren.",
     author: "Erik Voorhees"
   },
   {
-    id: 10,
+    id: 11,
     text: "Wirtschaft ist kein Mysterium - sie beschreibt einfach, wie Menschen in einer Gesellschaft mit Werten umgehen.",
     author: "Eugen von Böhm-Bawerk"
   },
   {
-    id: 11,
+    id: 12,
     text: "Bitcoin entwickelt sich ständig weiter, um auch bei vielen Nutzern schnell und effizient zu bleiben.",
     author: "Satoshi Nakamoto"
   },
   {
-    id: 12,
+    id: 13,
     text: "Bitcoin gibt die Kontrolle über Geld zurück an die Menschen - weg von Banken und Regierungen.",
     author: "Satoshi Nakamoto"
   },
   {
-    id: 13,
+    id: 14,
     text: "Die Geschichte von Mt. Gox zeigt, warum es wichtig ist, Bitcoin selbst zu verwahren: 'Nicht deine Schlüssel, nicht deine Bitcoins'.",
     author: "Andreas Antonopoulos"
-  },
-  {
-    id: 14,
-    text: "Das Lightning-Netzwerk macht Bitcoin-Zahlungen so schnell und günstig wie eine Kartenzahlung - perfekt für den Alltag.",
-    author: "Elizabeth Stark"
   },
   {
     id: 15,
