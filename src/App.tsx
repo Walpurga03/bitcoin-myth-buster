@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Question } from './components/Question/Question';
 import { ExplanationPopup } from './components/ExplanationPopup/ExplanationPopup';
 import StartAnimation from './components/StartAnimation/StartAnimation';
@@ -15,10 +15,42 @@ function App() {
   const [showStartAnimation, setShowStartAnimation] = useState(true);
   const [showEndAnimation, setShowEndAnimation] = useState(false);
   const [showQuote, setShowQuote] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+
+  // Memoize current question and quote to prevent unnecessary re-renders
+  const currentQuestion = useMemo(() => myths[currentQuestionIndex], [currentQuestionIndex]);
+  const currentQuote = useMemo(() => quotes[currentQuoteIndex % quotes.length], [currentQuoteIndex]);
+
+  // Preload next question and prepare data
+  useEffect(() => {
+    if (currentQuestionIndex < myths.length - 1) {
+      // Preload next question data
+      const preloadNextQuestion = () => {
+        const nextIndex = currentQuestionIndex + 1;
+        if (nextIndex < myths.length) {
+          // Create a hidden element to preload text
+          const preloadDiv = document.createElement('div');
+          preloadDiv.style.display = 'none';
+          preloadDiv.textContent = myths[nextIndex].text + myths[nextIndex].explanation;
+          document.body.appendChild(preloadDiv);
+          
+          // Remove after a short delay
+          setTimeout(() => {
+            document.body.removeChild(preloadDiv);
+          }, 100);
+        }
+      };
+
+      preloadNextQuestion();
+    }
+  }, [currentQuestionIndex]);
 
   const handleAnswer = (answer: boolean) => {
-    const isCorrect = answer === myths[currentQuestionIndex].isMyth;
+    const isCorrect = answer === currentQuestion.isMyth;
     setIsAnswerCorrect(isCorrect);
+    if (isCorrect) {
+      setCorrectAnswers(prev => prev + 1);
+    }
     setShowExplanation(true);
   };
 
@@ -30,7 +62,6 @@ function App() {
   const handleNextQuestion = () => {
     setShowQuote(false);
     
-    // Nächste Frage
     if (currentQuestionIndex < myths.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setCurrentQuoteIndex(currentQuoteIndex + 1);
@@ -46,23 +77,28 @@ function App() {
   }
 
   if (showEndAnimation) {
-    return <EndAnimation onComplete={() => {
-      setShowEndAnimation(false);
-      setCurrentQuestionIndex(0);
-      setCurrentQuoteIndex(0);
-    }} />;
+    return <EndAnimation 
+      onComplete={() => {
+        setShowEndAnimation(false);
+        setCurrentQuestionIndex(0);
+        setCurrentQuoteIndex(0);
+        setCorrectAnswers(0);
+      }}
+      correctAnswers={correctAnswers}
+      totalQuestions={myths.length}
+    />;
   }
-
-  const currentQuestion = myths[currentQuestionIndex];
-  const currentQuote = quotes[currentQuoteIndex % quotes.length];
 
   return (
     <div className="app">
       <div className={`app__content ${showQuote ? 'blur-background' : ''}`}>
-        <Question
-          questionText={currentQuestion.text}
-          onAnswer={handleAnswer}
-        />
+        {!showStartAnimation && !showEndAnimation && (
+          <Question
+            key={currentQuestionIndex}
+            questionText={currentQuestion.text}
+            onAnswer={handleAnswer}
+          />
+        )}
         {showExplanation && (
           <ExplanationPopup
             explanation={currentQuestion.explanation}

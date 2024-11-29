@@ -60,7 +60,7 @@ const SpeakerButton = ({ text }: SpeakerButtonProps) => {
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'de-DE';
-    utterance.rate = 1.1;  // 10% langsamer für bessere Verständlichkeit
+    utterance.rate = 0.9;  // 10% langsamer für bessere Verständlichkeit
     utterance.pitch = 0.6; // Leicht tiefere Stimme (0-2, normal ist 1.0)
     utterance.volume = 1.0; // Maximale Lautstärke
     

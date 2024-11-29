@@ -5,10 +5,6 @@
 // Base
 @use 'base/reset';
 
-// Components
-@use 'components/question';
-@use 'components/explanation-popup';
-@use 'components/educational-insight';
 
 .app {
   min-height: 100vh;

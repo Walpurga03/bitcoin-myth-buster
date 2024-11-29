@@ -7,35 +7,34 @@ interface QuestionProps {
 }
 
 export const Question: React.FC<QuestionProps> = ({ questionText, onAnswer }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    button.style.setProperty('--x', `${x}%`);
-    button.style.setProperty('--y', `${y}%`);
-  };
+    requestAnimationFrame(() => {
+      setIsLoaded(true);
+    });
+  }, [questionText]);
 
   const handleAnswer = (answer: boolean) => {
-    setIsVisible(false);
+    setIsLoaded(false);
     setTimeout(() => onAnswer(answer), 300);
   };
 
   return (
     <div 
-      className={`question-container ${isVisible ? 'visible' : ''}`}
+      className={`question-container ${isLoaded ? 'visible' : ''}`}
       role="region"
       aria-label="Bitcoin Frage"
     >
       <h2 
         className="question-text"
         role="heading"
+        aria-level={1}
+        style={{ 
+          willChange: 'transform, opacity',
+          contentVisibility: 'auto',
+          containIntrinsicSize: '0 50px'
+        }}
       >
         {questionText}
       </h2>
@@ -47,9 +46,6 @@ export const Question: React.FC<QuestionProps> = ({ questionText, onAnswer }) =>
         <button
           className="answer-button yes"
           onClick={() => handleAnswer(true)}
-          onMouseMove={handleMouseMove}
-          onFocus={(e) => e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)'}
-          onBlur={(e) => e.currentTarget.style.transform = ''}
           aria-label="Ja, stimme zu"
         >
           Ja
@@ -57,9 +53,6 @@ export const Question: React.FC<QuestionProps> = ({ questionText, onAnswer }) =>
         <button
           className="answer-button no"
           onClick={() => handleAnswer(false)}
-          onMouseMove={handleMouseMove}
-          onFocus={(e) => e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)'}
-          onBlur={(e) => e.currentTarget.style.transform = ''}
           aria-label="Nein, stimme nicht zu"
         >
           Nein

@@ -4,9 +4,11 @@ import { sources } from '../../data/sources';
 
 interface EndAnimationProps {
   onComplete: () => void;
+  correctAnswers: number;
+  totalQuestions: number;
 }
 
-const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
+const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete, correctAnswers, totalQuestions }) => {
   const particlesRef = useRef<HTMLCanvasElement>(null);
   const bitcoinLogoRef = useRef<HTMLDivElement>(null);
 
@@ -118,11 +120,8 @@ const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
     <div className="end-animation">
       <canvas ref={particlesRef} className="particles-canvas" />
       
-      <div className="bitcoin-logo" ref={bitcoinLogoRef}>
-        <img src="/bitcoin-logo.svg" alt="Bitcoin Logo" />
-      </div>
-      
-      <div className="end-animation__content visible">
+      <div className="content">
+        <div ref={bitcoinLogoRef} className="bitcoin-logo">₿</div>
         <div className="glowing-title">
           <h2 className="glowing">Gratulation! 🎉</h2>
           <div className="glowing-orbs">
@@ -131,12 +130,17 @@ const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
             <div className="orb"></div>
           </div>
         </div>
-
+        
         <div className="message">
           <p>Du hast es geschafft! Du kennst jetzt die häufigsten Bitcoin-Mythen und ihre Widerlegungen.</p>
         </div>
 
-        <div className="resources">
+        <div className="score">
+          <p>Du hast {correctAnswers} von {totalQuestions} Fragen richtig beantwortet!</p>
+          <p className="percentage">({Math.round((correctAnswers / totalQuestions) * 100)}%)</p>
+        </div>
+        <button onClick={onComplete}>Neu starten</button>
+        <div className="sources">
           <h3>Weiterführende Ressourcen</h3>
           <div className="resources-grid">
             {sources.map(source => (
@@ -154,7 +158,6 @@ const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
             ))}
           </div>
         </div>
-
         <div className="contribute">
           <h3>Open Source</h3>
           <p>Der Code steht jedem zur Verfügung. So kannst du ihn für deine eigenen Bitcoin-Mythen nutzen:</p>
@@ -207,10 +210,6 @@ const EndAnimation: React.FC<EndAnimationProps> = ({ onComplete }) => {
           </div>
         </div>
       </div>
-
-      <button className="back-button" onClick={onComplete}>
-        Zurück zum Start
-      </button>
     </div>
   );
 };
