@@ -20,7 +20,7 @@ export const myths: Myth[] = [
   },
   {
     id: 3,
-    text: "Ist es unmöglich, Bitcoin sicher zu kaufen?",
+    text: "Ist es möglich, Bitcoin sicher zu kaufen?",
     explanation: "Ja, Bitcoin kann sehr sicher gekauft werden, wenn man die richtigen Vorsichtsmaßnahmen trifft. Nutzen Sie regulierte Börsen wie Kraken, Coinbase oder Bison, die in Deutschland/EU lizenziert sind. Aktivieren Sie immer die Zwei-Faktor-Authentifizierung (2FA) und verwenden Sie sichere Passwörter. Für größere Beträge empfiehlt sich die Nutzung eines Hardware Wallets (z.B. BitBox, Trezor). Achten Sie auf eine sichere Aufbewahrung Ihrer Backup-Phrasen und dokumentieren Sie Ihre Transaktionen.",
     isMyth: true
   },
@@ -39,7 +39,7 @@ export const myths: Myth[] = [
   {
     id: 6,
     text: "Hat Bitcoin einen echten Wert?",
-    explanation: "Ja, Bitcoin hat einen realen Wert durch sein Netzwerk, Sicherheit und Knappheit. Als erstes digitales, knappes Gut bietet es einzigartige Eigenschaften: unveränderliche Geldpolitik, globale Übertragbarkeit und dezentralisierte Kontrolle. Der Wert entsteht durch diese Eigenschaften und das Vertrauen der Nutzer.",
+    explanation: "Ja, Bitcoin hat einen echten Wert durch sein Netzwerk, Sicherheit und Knappheit. Als erstes digitales, knappes Gut bietet es einzigartige Eigenschaften: unveränderliche Geldpolitik, globale Übertragbarkeit und dezentralisierte Kontrolle. Der Wert entsteht durch diese Eigenschaften und das Vertrauen der Nutzer.",
     isMyth: true
   },
   {
