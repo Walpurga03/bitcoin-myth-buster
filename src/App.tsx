@@ -21,6 +21,9 @@ function App() {
   const currentQuestion = useMemo(() => myths[currentQuestionIndex], [currentQuestionIndex]);
   const currentQuote = useMemo(() => quotes[currentQuoteIndex % quotes.length], [currentQuoteIndex]);
 
+  // Calculate progress
+  const progress = `${currentQuestionIndex + 1}/${myths.length}`;
+
   // Preload next question and prepare data
   useEffect(() => {
     if (currentQuestionIndex < myths.length - 1) {
@@ -90,38 +93,45 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <div className={`app__content ${showQuote ? 'blur-background' : ''}`}>
-        {!showStartAnimation && !showEndAnimation && (
-          <Question
-            key={currentQuestionIndex}
-            questionText={currentQuestion.text}
-            onAnswer={handleAnswer}
-          />
-        )}
-        {showExplanation && (
-          <ExplanationPopup
-            explanation={currentQuestion.explanation}
-            isOpen={showExplanation}
-            isCorrect={isAnswerCorrect}
-            onClose={handleCloseExplanation}
-          />
+    <div className="app-container">
+      {/* Progress Bar */}
+      <div className="progress-bar">
+        <span>{progress}</span>
+      </div>
+      <div className="app">
+        <div className={`app__content ${showQuote ? 'blur-background' : ''}`}>
+          {!showStartAnimation && !showEndAnimation && (
+            <Question
+              key={currentQuestionIndex}
+              questionText={currentQuestion.text}
+              onAnswer={handleAnswer}
+            />
+          )}
+          {showExplanation && (
+            <ExplanationPopup
+              explanation={currentQuestion.explanation}
+              isOpen={showExplanation}
+              isCorrect={isAnswerCorrect}
+              onClose={handleCloseExplanation}
+              link={currentQuestion.link}
+            />
+          )}
+        </div>
+        {showQuote && currentQuote && (
+          <>
+            <div className="overlay" />
+            <div className="quote-container">
+              <div className="quote-box">
+                <p className="quote-text">{currentQuote.text}</p>
+                <p className="quote-author">- {currentQuote.author}</p>
+                <button onClick={handleNextQuestion} className="next-button">
+                  Weiter
+                </button>
+              </div>
+            </div>
+          </>
         )}
       </div>
-      {showQuote && currentQuote && (
-        <>
-          <div className="overlay" />
-          <div className="quote-container">
-            <div className="quote-box">
-              <p className="quote-text">{currentQuote.text}</p>
-              <p className="quote-author">- {currentQuote.author}</p>
-              <button onClick={handleNextQuestion} className="next-button">
-                Weiter
-              </button>
-            </div>
-          </div>
-        </>
-      )}
     </div>
   );
 }

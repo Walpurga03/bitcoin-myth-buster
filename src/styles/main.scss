@@ -118,17 +118,196 @@
   @media (max-width: 480px) {
     width: 85%;
     font-size: 1rem;
-    padding: 15px;
+    padding: 010px;
   }
+}
+
+.explanation-popup {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  width: min(90vw, 500px);
+  max-height: 80vh;
+  background-color: #1a1a1a;
+  border: 2px solid #f7931a;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 20px rgba(247, 147, 26, 0.2);
+  animation: fadeInScale 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+
+  // Styling für den Text im Popup
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.4;
+  text-align: center;
+
+  p {
+    margin: 0 0 10px 0;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, lighten($color-bitcoin, 5%), darken($color-bitcoin, 10%));
+    color: #1a1a1a;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    
+    &::after {
+      content: '→';
+      display: inline-block;
+      margin-left: 8px;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba($color-bitcoin, 0.3);
+      background: linear-gradient(135deg, lighten($color-bitcoin, 10%), $color-bitcoin);
+      border-color: rgba(255, 255, 255, 0.1);
+      
+      &::after {
+        transform: translateX(3px);
+      }
+    }
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba($color-bitcoin, 0.2);
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 480px) {
+    inset: 0;
+    transform: none;
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    border: none;
+    animation: fadeInScaleMobile 0.3s ease-out;
+    
+    &__link {
+      font-size: 0.85rem;
+      padding: 6px 16px;
+      margin: 15px auto;
+    }
+
+    p {
+      margin: 0 0 15px 0;
+      padding: 0 10px;
+    }
+  }
+}
+
+.progress-bar {
+  background-color: #1a1a1a;
+  border-radius: 15px;
+  padding: 5px;
+  margin: 15px 0;
+  width: 100%;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: fadeIn 1s ease-out;
+
+  span {
+    display: block;
+    background: linear-gradient(90deg, 
+      darken($color-bitcoin, 20%),
+      $color-bitcoin,
+      lighten($color-bitcoin, 10%)
+    );
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    text-align: center;
+    color: #1a1a1a;
+    line-height: 30px;
+    font-weight: bold;
+    transition: width 0.5s ease-in-out, transform 0.5s ease-in-out;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+    animation: pulse 2s infinite;
+    position: relative;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      opacity: 0.6;
+      pointer-events: none;
+      animation: shine 2s infinite;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: translate(-50%, -45%) scale(0.95);
+    transform: translate(-50%, -50%) scale(0.95);
   }
   to {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes fadeInScaleMobile {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes progress-animation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(5%);
   }
 }

@@ -12,6 +12,7 @@ interface ExplanationPopupProps {
   isOpen: boolean;
   isCorrect: boolean;
   onClose: () => void;
+  link?: string;
 }
 
 export const ExplanationPopup: React.FC<ExplanationPopupProps> = ({
@@ -19,6 +20,7 @@ export const ExplanationPopup: React.FC<ExplanationPopupProps> = ({
   isOpen,
   isCorrect,
   onClose,
+  link
 }) => {
   if (!isOpen) return null;
 
@@ -48,6 +50,16 @@ export const ExplanationPopup: React.FC<ExplanationPopupProps> = ({
         <div className="explanation-body">
           <div className="explanation-text">
             <p>{explanation}</p>
+            {link && (
+              <a 
+                href={link} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="explanation-popup__link"
+              >
+                Mehr Informationen
+              </a>
+            )}
           </div>
 
           <div className="explanation-controls">
