@@ -47,6 +47,7 @@
   }
 
   &__content {
+    position: relative;
     background: rgba(#000, 0.85);
     backdrop-filter: blur(var(--backdrop-blur));
     -webkit-backdrop-filter: blur(var(--backdrop-blur));
@@ -98,6 +99,33 @@
     @media (prefers-reduced-motion: reduce) {
       transform: none;
       transition: opacity 0.1s ease-in-out;
+    }
+  }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    color: $color-bitcoin;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    z-index: 2;
+
+    &:hover {
+      background-color: rgba($color-bitcoin, 0.1);
+    }
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 

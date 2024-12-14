@@ -32,11 +32,7 @@ export const ExplanationPopup: React.FC<ExplanationPopupProps> = ({
       aria-labelledby="explanation-title"
     >
       <div className="explanation-popup__content">
-        <div className="explanation-header">
-          <h2 id="explanation-title">
-            {isCorrect ? 'Richtig!' : 'Nicht ganz...'}
-          </h2>
-          <button 
+      <button 
             className="close-button" 
             onClick={onClose}
             aria-label="Schließen"
@@ -45,6 +41,12 @@ export const ExplanationPopup: React.FC<ExplanationPopupProps> = ({
               <path d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
+        <div className="explanation-header">
+       
+          <h2 id="explanation-title">
+            {isCorrect ? 'Richtig!' : 'Nicht ganz...'}
+          </h2>
+         
         </div>
 
         <div className="explanation-body">
